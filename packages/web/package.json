@@ -8,6 +8,7 @@
     "express": "^4.15.3",
     "isomorphic-fetch": "^2.2.1",
     "next": "3.0.0-beta16",
+    "nodegit": "^0.18.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
