@@ -1,0 +1,11 @@
+[ignore]
+.*\/babel-plugin-transform-react-remove-prop-types\/.*
+.*\/flow-coverage-report\/.*
+.*\/node_modules\/mitt\/.*
+.*\/conventional-changelog-core\/.*
+
+[include]
+
+[libs]
+
+[options]
