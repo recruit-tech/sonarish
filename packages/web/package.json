@@ -10,5 +10,8 @@
     "next": "3.0.0-beta16",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
