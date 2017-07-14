@@ -1,4 +1,3 @@
-// TODO
 const countOperator = node => {
   switch (node.type) {
     case 'LogicalExpression':

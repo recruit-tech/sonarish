@@ -1,7 +1,7 @@
 {
   "name": "eslint-plugin-sonarish",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "license": "MIT",
   "devDependencies": {
     "ava": "^0.21.0",

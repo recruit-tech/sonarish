@@ -2,6 +2,7 @@ const path = require('path')
 const fs = require('fs')
 const { CLIEngine } = require('eslint')
 
+const SONARISH_REPOS_PATH = '/tmp/sonarish-repos'
 const cli = new CLIEngine({
   useEslintrc: false,
   rules: {
@@ -12,7 +13,7 @@ const cli = new CLIEngine({
 // /repo/:name
 module.exports = (req, res) => {
   const { name } = req.params
-  const rootPath = path.resolve(__dirname, '../repos', name)
+  const rootPath = path.resolve(SONARISH_REPOS_PATH, name)
   if (!fs.existsSync(rootPath)) {
     return res.send({
       error: true,
