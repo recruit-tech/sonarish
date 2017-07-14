@@ -1,0 +1,14 @@
+{
+  "name": "eslint-plugin-sonarish",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "ava": "^0.21.0",
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.2.0"
+  },
+  "scripts": {
+    "test": "ava"
+  }
+}
