@@ -16,6 +16,14 @@ export default class Index extends React.Component {
           >
             <a>repo:express</a>
           </Link>
+          <Link
+            href={{
+              pathname: 'repo',
+              query: { name: 'shift' }
+            }}
+          >
+            <a>repo:shift</a>
+          </Link>
         </div>
       </div>
     )

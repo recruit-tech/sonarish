@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch'
 import React from 'react'
 import Link from 'next/link'
+import Collapse from 'rc-collapse'
 import Header from '../components/Header'
 
 const API_HOST = 'http://localhost:3001'
@@ -14,6 +15,8 @@ export default class Repo extends React.Component {
   }
   render() {
     const { data } = this.props
+    const rootDir = '/tmp/sonarish-repos/' + this.props.name
+    console.log(data)
     return (
       <div>
         <Header />
@@ -23,34 +26,48 @@ export default class Repo extends React.Component {
             return (
               <li key={d.rulesetName}>
                 <h3>{d.rulesetName}</h3>
-                <div>
-                  errorCount: {d.rulesetResult.errorCount}
-                  <br />
-                  in {d.rulesetResult.results.length} files
-                </div>
-                {/* <ul>
-                  {d.results
-                    .filter(ret => ret.errorCount > 0)
-                    .map((ret, index) => {
-                      return (
-                        <li key={index}>
-                          <h3>{ret.filePath}</h3>
-                          errorCount: {ret.errorCount}
-                          <br />
-
-                          <ul>
-                            {ret.messages.map((m, index) => {
+                {d.rulesetResult.map((retByPri, index) =>
+                  <div key={index}>
+                    <h4>
+                      Priority: {4 - index}
+                    </h4>
+                    <div>
+                      Error: {retByPri.errorCount}
+                    </div>
+                    <Collapse accordion={true} transitionTime={0}>
+                      <Collapse.Panel header="Detail">
+                        <ul>
+                          {retByPri.results
+                            .filter(ret => ret.errorCount > 0)
+                            .map((ret, index) => {
                               return (
-                                <p key={index}>
-                                  {m.column}:{m.row} - {m.message}
-                                </p>
+                                <li key={index}>
+                                  <h3>{ret.filePath.replace(rootDir, '~')}</h3>
+                                  Error: {ret.errorCount} in file
+                                  <ul>
+                                    {ret.messages.map((m, index) => {
+                                      return (
+                                        <p key={index}>
+                                          <div>
+                                            {m.line}:{m.column}
+                                            <code>{m.source}</code>
+                                            <br />
+                                            {m.message} / {m.ruleId}
+                                          </div>
+                                        </p>
+                                      )
+                                    })}
+                                  </ul>
+                                </li>
                               )
                             })}
-                          </ul>
-                        </li>
-                      )
-                    })}
-                </ul> */}
+                        </ul>
+                      </Collapse.Panel>
+                    </Collapse>
+
+                  </div>
+                )}
+
               </li>
             )
           })}

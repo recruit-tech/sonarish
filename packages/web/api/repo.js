@@ -5,23 +5,66 @@ const { CLIEngine } = require('eslint')
 const SONARISH_REPOS_PATH = '/tmp/sonarish-repos'
 const ERR = 2
 
-const RULESETS = [
+type Ruleset = {
+  rulesetName: string,
+  plugins?: string[],
+  rules: Object
+}
+
+type RulesetEngine = {
+  rulesetName: string,
+  cli: CLIEngine
+}
+
+const RULESETS: Ruleset[] = [
   {
-    rulesetName: 'style',
-    rules: { semi: ERR }
-  },
-  {
-    rulesetName: 'quality',
-    rules: { 'prefer-const': ERR }
+    rulesetName: 'code-quality',
+    plugins: ['mutation', 'eslint-comments'],
+    rulesWithPriority: [
+      {
+        rule: 'prefer-arrow-callback',
+        priority: 1
+      },
+      {
+        rule: 'prefer-const',
+        priority: 2
+      },
+      {
+        rule: 'eslint-comments/no-use',
+        priority: 3
+      },
+      {
+        rule: 'mutation/no-mutation',
+        priority: 0,
+        args: [{ exceptions: ['this', 'that', 'global', 'window', 'module'] }]
+      }
+    ]
   }
 ]
 
-const engines = RULESETS.map(r => ({
-  rulesetName: r.rulesetName,
-  cli: new CLIEngine({
+const createEngine = (ruleset, priority) => {
+  return new CLIEngine({
     useEslintrc: false,
-    rules: r.rules
+    parser: 'babel-eslint',
+    plugins: ruleset.plugins,
+    rules: ruleset.rulesWithPriority
+      .filter(i => i.priority === priority)
+      .reduce((acc, next) => {
+        return Object.assign(acc, {
+          [next.rule]: [ERR].concat(next.args || [])
+        })
+      }, {})
   })
+}
+
+const engines: RulesetEngine = RULESETS.map(r => ({
+  rulesetName: r.rulesetName,
+  cliByPriority: [
+    createEngine(r, 0),
+    createEngine(r, 1),
+    createEngine(r, 2),
+    createEngine(r, 3)
+  ].reverse()
 }))
 
 // /repo/:name
@@ -38,8 +81,9 @@ module.exports = (req, res) => {
     error: false,
     name,
     data: engines.map(e => ({
+      rulesets: RULESETS,
       rulesetName: e.rulesetName,
-      rulesetResult: e.cli.executeOnFiles([rootPath])
+      rulesetResult: e.cliByPriority.map(cli => cli.executeOnFiles([rootPath]))
     }))
   })
 }
