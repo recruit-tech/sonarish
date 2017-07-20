@@ -3,12 +3,26 @@ const fs = require('fs')
 const { CLIEngine } = require('eslint')
 
 const SONARISH_REPOS_PATH = '/tmp/sonarish-repos'
-const cli = new CLIEngine({
-  useEslintrc: false,
-  rules: {
-    semi: 2
+const ERR = 2
+
+const RULESETS = [
+  {
+    rulesetName: 'style',
+    rules: { semi: ERR }
+  },
+  {
+    rulesetName: 'quality',
+    rules: { 'prefer-const': ERR }
   }
-})
+]
+
+const engines = RULESETS.map(r => ({
+  rulesetName: r.rulesetName,
+  cli: new CLIEngine({
+    useEslintrc: false,
+    rules: r.rules
+  })
+}))
 
 // /repo/:name
 module.exports = (req, res) => {
@@ -20,10 +34,12 @@ module.exports = (req, res) => {
       message: `There is no ${name}`
     })
   }
-  const data = cli.executeOnFiles([rootPath])
   res.send({
     error: false,
     name,
-    data
+    data: engines.map(e => ({
+      rulesetName: e.rulesetName,
+      rulesetResult: e.cli.executeOnFiles([rootPath])
+    }))
   })
 }

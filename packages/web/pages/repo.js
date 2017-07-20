@@ -18,32 +18,44 @@ export default class Repo extends React.Component {
       <div>
         <Header />
         <h2>Repo: {this.props.name}</h2>
-        <div>
-          errorCount: {data.errorCount}
-          <br />
-          warningCount: {data.warningCount}
-        </div>
         <ul>
-          {data.results.filter(ret => ret.errorCount > 0).map((ret, index) => {
+          {data.map(d => {
             return (
-              <li key={index}>
-                <h3>fpath: {ret.filePath}</h3>
-                errorCount: {ret.errorCount}
-                <br />
+              <li key={d.rulesetName}>
+                <h3>{d.rulesetName}</h3>
+                <div>
+                  errorCount: {d.rulesetResult.errorCount}
+                  <br />
+                  in {d.rulesetResult.results.length} files
+                </div>
+                {/* <ul>
+                  {d.results
+                    .filter(ret => ret.errorCount > 0)
+                    .map((ret, index) => {
+                      return (
+                        <li key={index}>
+                          <h3>{ret.filePath}</h3>
+                          errorCount: {ret.errorCount}
+                          <br />
 
-                <ul>
-                  {ret.messages.map((m, index) => {
-                    return (
-                      <p key={index}>
-                        {m.column}:{m.row} - {m.message}
-                      </p>
-                    )
-                  })}
-                </ul>
+                          <ul>
+                            {ret.messages.map((m, index) => {
+                              return (
+                                <p key={index}>
+                                  {m.column}:{m.row} - {m.message}
+                                </p>
+                              )
+                            })}
+                          </ul>
+                        </li>
+                      )
+                    })}
+                </ul> */}
               </li>
             )
           })}
         </ul>
+
       </div>
     )
   }
