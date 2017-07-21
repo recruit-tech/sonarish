@@ -1,12 +1,10 @@
 {
-  "name": "web",
+  "name": "sonarish-web-frontend",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
   "license": "MIT",
   "scripts": {
-    "start:api": "nodemon api.js --exec babel-node",
-    "start:web": "next",
-    "watch": "run-p start:*"
+    "start": "next"
   },
   "dependencies": {
     "sonarish-core": "^0.0.0",

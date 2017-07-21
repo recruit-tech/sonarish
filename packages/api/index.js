@@ -1,5 +1,5 @@
 const express = require('express')
-const repoApi = require('./api/repo')
+const repo = require('./middlewares/repo')
 
 const server = express()
 
@@ -13,7 +13,7 @@ server.use(function(req, res, next) {
   next()
 })
 
-server.get('/repo/:name', repoApi)
+server.get('/repo/:name', repo)
 server.listen(3001, err => {
   if (err) throw err
   console.log('> API Ready on http://localhost:3001')

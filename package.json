@@ -3,11 +3,17 @@
   "private": true,
   "author": "mizchi <miz404@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start:api": "cd packages/api; npm start",
+    "start:web": "cd packages/web; npm start",
+    "start": "run-p start:*"
+  },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-env": "^1.6.0",
     "babel-preset-flow": "^6.23.0",
-    "lerna": "^2.0.0"
+    "lerna": "^2.0.0",
+    "npm-run-all": "^4.0.2"
   },
   "yarn": {
     "ignore-symlinked": true
