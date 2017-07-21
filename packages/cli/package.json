@@ -1,0 +1,9 @@
+{
+  "name": "sonarish-cli",
+  "version": "0.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "sonarish-core": "0.0.0"
+  }
+}

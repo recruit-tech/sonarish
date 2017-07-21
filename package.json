@@ -1,14 +1,12 @@
 {
   "name": "sonarish",
-  "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
   "author": "mizchi <miz404@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-flow": "^6.23.0",
     "lerna": "^2.0.0"
-  },
-  "dependencies": {
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1"
   }
 }

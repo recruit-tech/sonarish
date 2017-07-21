@@ -1,0 +1,16 @@
+{
+  "name": "sonarish-core",
+  "version": "0.0.0",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "prepare": "babel src -d lib"
+  },
+  "dependencies": {
+    "sonarish-ruleset": "^0.0.0",
+    "eslint": "^4.2.0",
+    "eslint-plugin-eslint-comments": "^1.0.2",
+    "eslint-plugin-mutation": "^1.0.0"
+  },
+  "devDependencies": {}
+}

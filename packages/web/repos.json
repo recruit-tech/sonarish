@@ -1,8 +1,0 @@
-{
-  "repos": [
-    {
-      "name": "express",
-      "url": "git@github.com:expressjs/express.git"
-    }
-  ]
-}
