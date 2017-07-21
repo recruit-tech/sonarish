@@ -2,6 +2,8 @@ const path = require('path')
 const fs = require('fs')
 const { report } = require('sonarish-core')
 
+const SONARISH_REPOS_PATH = '/tmp/sonarish-repos'
+
 // /repo/:name
 module.exports = (req, res) => {
   const { name } = req.params

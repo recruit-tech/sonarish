@@ -1,7 +1,9 @@
+/* @flow */
 import path from 'path'
 import fs from 'fs'
 import { CLIEngine } from 'eslint'
 import RULESETS from 'sonarish-ruleset'
+import type { Report } from 'sonarish-types'
 
 const ERR = 2
 
@@ -20,7 +22,7 @@ const createEngine = (ruleset, priority) => {
   })
 }
 
-const engines: RulesetEngine = RULESETS.map(r => ({
+const engines = RULESETS.map(r => ({
   rulesetName: r.rulesetName,
   cliByPriority: [
     createEngine(r, 0),
