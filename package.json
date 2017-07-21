@@ -4,8 +4,8 @@
   "author": "mizchi <miz404@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start:api": "cd packages/api; npm start",
-    "start:web": "cd packages/web; npm start",
+    "start:api": "npm start --prefix packages/api",
+    "start:web": "npm start --prefix packages/web",
     "start": "run-p start:*"
   },
   "devDependencies": {

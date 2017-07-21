@@ -17,5 +17,7 @@
     "sonarish-ruleset": "^0.0.0",
     "sonarish-types": "^0.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "ava": "^0.21.0"
+  }
 }
