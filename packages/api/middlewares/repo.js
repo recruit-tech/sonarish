@@ -1,11 +1,12 @@
-const path = require('path')
-const fs = require('fs')
-const { report } = require('sonarish-core')
+/* @flow */
+import path from 'path'
+import fs from 'fs'
+import { report } from 'sonarish-core'
 
 const SONARISH_REPOS_PATH = '/tmp/sonarish-repos'
 
 // /repo/:name
-module.exports = (req, res) => {
+export default (req: any, res: any) => {
   const { name } = req.params
   const rootPath = path.resolve(SONARISH_REPOS_PATH, name)
   if (!fs.existsSync(rootPath)) {

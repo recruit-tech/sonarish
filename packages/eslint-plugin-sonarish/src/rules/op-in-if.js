@@ -7,7 +7,7 @@ const countOperator = node => {
   }
 }
 
-module.exports = {
+export default {
   meta: {
     docs: {},
     schema: [
@@ -24,7 +24,7 @@ module.exports = {
   },
 
   create(context) {
-    const options = context.options[0] || {}
+    // const options = context.options[0] || {}
     return {
       IfStatement(node) {
         const logicNum = countOperator(node.test)

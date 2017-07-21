@@ -1,12 +1,16 @@
+/* @flow */
 import fetch from 'isomorphic-fetch'
 import React from 'react'
-import Link from 'next/link'
 import Collapse from 'rc-collapse'
 import Header from '../components/Header'
 
 const API_HOST = 'http://localhost:3001'
 
 export default class Repo extends React.Component {
+  props: {
+    data: any, // TODO
+    name: string
+  }
   static async getInitialProps(props) {
     console.log(props)
     const { name } = props.query

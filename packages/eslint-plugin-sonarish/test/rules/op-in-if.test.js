@@ -1,5 +1,6 @@
-const rule = require('../../src/rules/op-in-if')
-const { RuleTester } = require('eslint')
+/* @flow */
+import { RuleTester } from 'eslint'
+import rule from '../../src/rules/op-in-if'
 
 const ruleTester = new RuleTester({
   parser: 'babel-eslint'

@@ -1,5 +1,6 @@
-const express = require('express')
-const repo = require('./middlewares/repo')
+/* @flow */
+import express from 'express'
+import repo from './middlewares/repo'
 
 const server = express()
 

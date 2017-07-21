@@ -1,3 +1,6 @@
-module.exports = {
-  'cond-depth': require('./rules/op-in-if.js')
+/* @flow */
+import opInIf from './rules/op-in-if'
+
+export default {
+  'cond-depth': opInIf
 }
