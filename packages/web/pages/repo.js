@@ -20,12 +20,16 @@ export default class Repo extends React.Component {
     return (
       <div>
         <Header />
-        <h2>Repo: {this.props.name}</h2>
+        <h2>
+          Repo: {this.props.name}
+        </h2>
         <ul>
           {data.map(d => {
             return (
               <li key={d.rulesetName}>
-                <h3>{d.rulesetName}</h3>
+                <h3>
+                  {d.rulesetName}
+                </h3>
                 {d.rulesetResult.map((retByPri, index) =>
                   <div key={index}>
                     <h4>
@@ -64,15 +68,12 @@ export default class Repo extends React.Component {
                         </ul>
                       </Collapse.Panel>
                     </Collapse>
-
                   </div>
                 )}
-
               </li>
             )
           })}
         </ul>
-
       </div>
     )
   }
