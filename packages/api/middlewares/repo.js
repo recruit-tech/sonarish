@@ -3,13 +3,13 @@ import path from 'path'
 import fs from 'fs'
 import { report } from 'sonarish-core'
 
-const SONARISH_REPOS_PATH = '/tmp/sonarish-repos'
+const SONARISH_PATH = '/tmp/sonarish'
 
 // /repo/:name
 export default (req: any, res: any) => {
   const { name } = req.params
-  const rootPath = path.resolve(SONARISH_REPOS_PATH, name)
-  if (!fs.existsSync(rootPath)) {
+  const repoPath = path.resolve(path.join(SONARISH_PATH, 'results', name))
+  if (!fs.existsSync(repoPath)) {
     return res.send({
       error: true,
       message: `There is no ${name}`
@@ -18,6 +18,6 @@ export default (req: any, res: any) => {
   res.send({
     error: false,
     name,
-    data: report(rootPath)
+    data: report(repoPath)
   })
 }

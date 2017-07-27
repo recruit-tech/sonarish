@@ -8,6 +8,7 @@ const createEngine = (ruleset, priority) => {
   return new CLIEngine({
     useEslintrc: false,
     parser: 'babel-eslint',
+    presets: ruleset.presets,
     plugins: ruleset.plugins,
     rules: ruleset.rulesWithPriority
       .filter(i => i.priority === priority)

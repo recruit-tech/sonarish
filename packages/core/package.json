@@ -14,8 +14,7 @@
     "eslint": "^4.2.0",
     "eslint-plugin-eslint-comments": "^1.0.2",
     "eslint-plugin-mutation": "^1.0.0",
-    "sonarish-ruleset": "^0.0.0",
-    "sonarish-types": "^0.0.0"
+    "sonarish-ruleset": "^0.0.0"
   },
   "devDependencies": {
     "ava": "^0.21.0"

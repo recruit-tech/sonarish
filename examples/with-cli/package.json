@@ -1,0 +1,14 @@
+{
+  "name": "with-cli",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "sonarish-cli": "^0.0.0"
+  }
+}
