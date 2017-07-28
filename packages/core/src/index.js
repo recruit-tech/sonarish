@@ -1,6 +1,7 @@
 /* @flow */
 import { CLIEngine } from 'eslint'
 import RULESETS from 'sonarish-ruleset'
+import groupBy from 'lodash.groupby'
 
 const ERR = 2
 
@@ -22,12 +23,15 @@ const createEngine = (ruleset, priority) => {
 
 const engines = RULESETS.map(r => ({
   rulesetName: r.rulesetName,
-  cliByPriority: [
-    createEngine(r, 0),
-    createEngine(r, 1),
-    createEngine(r, 2),
-    createEngine(r, 3)
-  ].reverse()
+  clis: groupBy(
+    [
+      { priority: 0, cli: createEngine(r, 0) },
+      { priority: 1, cli: createEngine(r, 1) },
+      { priority: 2, cli: createEngine(r, 2) },
+      { priority: 3, cli: createEngine(r, 3) }
+    ],
+    i => i.priority
+  )
 }))
 
 export function report(projectPath: string) {
