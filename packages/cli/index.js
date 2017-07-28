@@ -1,68 +1,81 @@
 /* eslint-disable */
 const fs = require('fs')
 const path = require('path')
-const { promisify } = require('util')
 const { execSync } = require('child_process')
 const mkdirp = require('mkdirp')
 const sonarish = require('sonarish-core')
-
-const argv = require('minimist')(process.argv.slice(2))
 const { gitUrlToName, cloneOrRebase } = require('./util')
 const { loadDb, registerRepo, initDb } = require('./storage')
 
-const [cmd] = argv._
+// cli parser
+const argv = require('minimist')(process.argv.slice(2))
+const [ $0, $1 ] = argv._
 
-const sonarishPath = argv.path || path.join(process.env.HOME, '.sonarish')
-const repoDirPath = path.join(sonarishPath, 'repos')
-const resultDirPath = path.join(sonarishPath, 'results')
-const dbPath = path.join(sonarishPath, 'db.json')
-console.log(sonarishPath)
+// constants
+const SONARISH_PATH = argv.path || path.join(process.env.HOME, '.sonarish')
+const REPO_DIR_PATH = path.join(SONARISH_PATH, 'repos')
+const RESULT_DIR_PATH = path.join(SONARISH_PATH, 'results')
+const DB_PATH = path.join(SONARISH_PATH, 'db.json')
 
-switch (cmd) {
+function isRunnable() {
+  return !!fs.existsSync(SONARISH_PATH)
+}
+
+switch ($0) {
   case 'init': {
-    if (fs.existsSync(sonarishPath)) {
-      console.warn('already exists', sonarishPath)
+    if (fs.existsSync(SONARISH_PATH)) {
+      console.warn('already exists', SONARISH_PATH)
       process.exit(1)
     }
-    mkdirp.sync(path.join(sonarishPath, 'repos'))
-    mkdirp.sync(path.join(sonarishPath, 'results'))
-    initDb(dbPath)
-    console.log('init with', sonarishPath)
+    mkdirp.sync(REPO_DIR_PATH)
+    mkdirp.sync(RESULT_DIR_PATH)
+    initDb(DB_PATH)
+    console.log('init with', SONARISH_PATH)
     break
   }
   case 'add': {
-    const [_, gitUrl] = argv._
-    if (!fs.existsSync(sonarishPath)) {
+    if (!isRunnable()) {
       console.error('You need to run `sonarish init` first')
+      process.exit(1)
     }
 
-    registerRepo(dbPath, gitUrl)
-    cloneOrRebase(gitUrl, path.join(repoDirPath, name))
+    const gitUrl = $1
+
+    registerRepo(DB_PATH, gitUrl)
+    cloneOrRebase(gitUrl, path.join(REPO_DIR_PATH, name))
     console.log('add', db)
     break
   }
-  case 'sync': {
-    const db = loadDb(dbPath)
-    db.repos.map(repo => {
-      cloneOrRebase(repo.gitUrl, repo.name)
-    })
-    console.log('synced')
-    break
-    // console.log('sync')
-  }
   case 'gen': {
-    const db = loadDb(dbPath)
+    if (!isRunnable()) {
+      console.error('You need to run `sonarish init` first')
+      process.exit(1)
+    }
+
+    const db = loadDb(DB_PATH)
     db.repos.map(repo => {
-      const repoPath = path.join(repoDirPath, repo.name)
+      const repoPath = path.join(REPO_DIR_PATH, repo.name)
       const result = sonarish.report(repoPath)
-      const resultPath = path.join(resultDirPath, repo.name + '.json')
+      const resultPath = path.join(RESULT_DIR_PATH, repo.name + '.json')
       fs.writeFileSync(resultPath, JSON.stringify(result))
       console.log('gen >', resultPath)
     })
     break
   }
+  case 'sync': {
+    if (!isRunnable()) {
+      console.error('You need to run `sonarish init` first')
+      process.exit(1)
+    }
+
+    const db = loadDb(DB_PATH)
+    db.repos.map(repo => {
+      cloneOrRebase(repo.gitUrl, repo.name)
+    })
+    console.log('synced')
+    break
+  }
   default: {
-    console.log(`Sonarish Commands: init gen show add sync`)
+    console.log(`Sonarish Commands: init add gen sync`)
   }
 }
-// console.log(report('/tmp/sonarish/repos/express'))
