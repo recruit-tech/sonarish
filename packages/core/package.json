@@ -6,9 +6,6 @@
   "scripts": {
     "prepare": "babel src -d lib"
   },
-  "yarn": {
-    "ignore-symlinked": true
-  },
   "dependencies": {
     "babel-eslint": "^7.2.3",
     "eslint": "^4.2.0",

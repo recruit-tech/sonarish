@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /* eslint-disable */
 const fs = require('fs')
 const path = require('path')
@@ -40,10 +41,11 @@ switch ($0) {
     }
 
     const gitUrl = $1
+    const name = gitUrlToName(gitUrl)
 
     registerRepo(DB_PATH, gitUrl)
     cloneOrRebase(gitUrl, path.join(REPO_DIR_PATH, name))
-    console.log('add', db)
+    console.log('add', $1)
     break
   }
   case 'gen': {

@@ -14,8 +14,12 @@ function loadDb(dbPath) {
 }
 
 function registerRepo(dbPath, gitUrl) {
-  const db = loadDb()
+  const db = loadDb(dbPath)
   const name = gitUrlToName(gitUrl)
+  if (db.repos.find(r => r.name === name)) {
+    console.warn(name, 'already registered')
+    return
+  }
   db.repos.push({
     name,
     gitUrl
@@ -27,5 +31,5 @@ function registerRepo(dbPath, gitUrl) {
 }
 
 module.exports = {
-  loadDb, registerRepo
+  initDb, loadDb, registerRepo
 }

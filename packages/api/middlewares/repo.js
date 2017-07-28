@@ -1,14 +1,14 @@
 /* @flow */
 import path from 'path'
 import fs from 'fs'
-import { report } from 'sonarish-core'
 
-const SONARISH_PATH = '/tmp/sonarish'
+const SONARISH_PATH = path.join(process.env.HOME || '', '.sonarish')
 
 // /repo/:name
 export default (req: any, res: any) => {
   const { name } = req.params
-  const repoPath = path.resolve(path.join(SONARISH_PATH, 'results', name))
+  const repoPath = path.join(SONARISH_PATH, 'results', name + '.json')
+  console.log('exists', repoPath)
   if (!fs.existsSync(repoPath)) {
     return res.send({
       error: true,
@@ -18,6 +18,6 @@ export default (req: any, res: any) => {
   res.send({
     error: false,
     name,
-    data: report(repoPath)
+    data: require(repoPath)
   })
 }

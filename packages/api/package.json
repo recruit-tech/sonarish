@@ -7,7 +7,7 @@
     "start": "nodemon index.js --exec babel-node"
   },
   "dependencies": {
-    "sonarish-core": "^0.0.0",
+    "sonarish-core": "0.0.0",
     "express": "^4.15.3",
     "mkdirp": "^0.5.1"
   },

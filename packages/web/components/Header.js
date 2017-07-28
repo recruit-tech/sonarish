@@ -5,9 +5,11 @@ import Link from 'next/link'
 export default function Header() {
   return (
     <header>
-      <Link href="/">
-        <a>Top</a>
-      </Link>
+      <h1>
+        <Link href="/">
+          <a style={{ color: 'black', textDecoration: 'none' }}>Sonarish</a>
+        </Link>
+      </h1>
       <hr />
     </header>
   )

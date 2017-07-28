@@ -12,15 +12,15 @@ export default class Repo extends React.Component {
     name: string
   }
   static async getInitialProps(props) {
-    console.log(props)
+    // console.log(props)
     const { name } = props.query
     const res = await fetch(API_HOST + `/repo/${name}`)
     return res.json()
   }
   render() {
     const { data } = this.props
-    const rootDir = '/tmp/sonarish-repos/' + this.props.name
-    console.log(data)
+    const rootDir = '/Users/mizchi/.sonarish/repos/' + this.props.name
+    console.log(this.props)
     return (
       <div>
         <Header />

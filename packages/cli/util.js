@@ -1,4 +1,6 @@
 /* eslint-disable */
+const fs = require('fs')
+const { execSync } = require('child_process')
 // Example:
 //   git@github.com:mizchi/sonarish.git => sonarish
 function gitUrlToName(gitUrl) {

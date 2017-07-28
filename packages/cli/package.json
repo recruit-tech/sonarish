@@ -1,14 +1,11 @@
 {
   "name": "sonarish-cli",
   "version": "0.0.0",
-  "bin": {
-    "sonarish": "index.js"
-  },
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
-    "sonarish-core": "0.0.0"
+    "sonarish-core": "^0.0.0"
   }
 }
