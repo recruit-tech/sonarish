@@ -17,11 +17,15 @@ const rulesetList: EslintRuleset[] = [
     name: 'code-quality',
     type: 'eslint',
     eslintOptions: {
-      useEslintrc: false,
       parser: 'babel-eslint',
       plugins: ['mutation', 'eslint-comments']
     },
     scoreRules: [
+      {
+        rule: 'mutation/no-mutation',
+        priority: 0,
+        args: [{ exceptions: ['this', 'that', 'global', 'window', 'module'] }]
+      },
       {
         rule: 'prefer-arrow-callback',
         priority: 1
@@ -33,26 +37,28 @@ const rulesetList: EslintRuleset[] = [
       {
         rule: 'eslint-comments/no-use',
         priority: 3
-      },
-      {
-        rule: 'mutation/no-mutation',
-        priority: 0,
-        args: [{ exceptions: ['this', 'that', 'global', 'window', 'module'] }]
       }
     ]
   }
 ]
 
-export const buildEslintRuleset: $buildEslintRuleset = ruleset => {
+// TODO: Merge with project eslint
+export const buildEslintRuleset: $buildEslintRuleset = (
+  ruleset,
+  _projectEslintrc // TODO: Use project default eslintrc
+) => {
+  const additionalRules = ruleset.scoreRules.reduce((acc, i) => {
+    return { ...acc, [i.rule]: [ERR, ...(i.args || [])] }
+  }, {})
+  const defaultRules = ruleset.eslintOptions.rules || {}
+  const rules = { ...defaultRules, ...additionalRules }
+
   return {
     name: ruleset.name,
     eslintOptions: {
       ...ruleset.eslintOptions,
-      useEslintrc: ruleset.eslintOptions.useEslintrc || true,
-      // TODO: Override by defaults
-      rules: ruleset.scoreRules.reduce((acc, i) => {
-        return { ...acc, [i.rule]: [ERR, i.args || []] }
-      }, {})
+      useEslintrc: false,
+      rules
     },
     defaultErrorScore: 1,
     defaultWarningScore: 3,
@@ -72,6 +78,8 @@ export const calcScore: $calcScore = (_result, _scoreMap) => {
 }
 
 export const report: $report = (projectRootPath, _opts) => {
+  // TODO: use project's eslint file
+  // const projectEslintrc = fs.readFileSync(projectRootPath)
   return rulesetList.map(ruleset => {
     const rulesetInternal = buildEslintRuleset(ruleset)
     const eslintRawResult = execEslintOnProject(
@@ -88,3 +96,5 @@ export const report: $report = (projectRootPath, _opts) => {
     }
   })
 }
+
+console.log(report('/Users/uu110013/.sonarish/repos/express'))

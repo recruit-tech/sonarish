@@ -17,6 +17,7 @@
     "sonarish-ruleset": "^0.0.0"
   },
   "devDependencies": {
-    "ava": "^0.21.0"
+    "ava": "^0.21.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0"
   }
 }

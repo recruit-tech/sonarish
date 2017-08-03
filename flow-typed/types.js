@@ -69,7 +69,7 @@ declare module 'sonarish-types' {
     scoreMap: { [rule: string]: $Priority }
   }
 
-  declare type $buildEslintRuleset = (EslintRuleset) => EslintRulesetInternal
+  declare type $buildEslintRuleset = (EslintRuleset, ?eslint$CLIEngineOptions) => EslintRulesetInternal
   declare type $execEslintOnProject = (
     string,
     eslint$CLIEngineOptions
