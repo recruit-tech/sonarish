@@ -1,4 +1,6 @@
 [ignore]
+.*\/babel-plugin-transform-react-remove-prop-types\/.*
+.*\/conventional-changelog-core\/.*
 
 [include]
 
