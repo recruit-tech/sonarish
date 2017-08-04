@@ -1,9 +1,18 @@
 /* eslint-disable */
 module.exports = [
   {
-    rulesetName: 'code-quality',
-    plugins: ['mutation', 'eslint-comments'],
-    rulesWithPriority: [
+    name: 'code-quality',
+    type: 'eslint',
+    eslintOptions: {
+      parser: 'babel-eslint',
+      plugins: ['mutation', 'eslint-comments']
+    },
+    scoreRules: [
+      {
+        rule: 'mutation/no-mutation',
+        priority: 0,
+        args: [{ exceptions: ['this', 'that', 'global', 'window', 'module'] }]
+      },
       {
         rule: 'prefer-arrow-callback',
         priority: 1
@@ -15,11 +24,6 @@ module.exports = [
       {
         rule: 'eslint-comments/no-use',
         priority: 3
-      },
-      {
-        rule: 'mutation/no-mutation',
-        priority: 0,
-        args: [{ exceptions: ['this', 'that', 'global', 'window', 'module'] }]
       }
     ]
   }

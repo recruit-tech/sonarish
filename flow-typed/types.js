@@ -9,21 +9,25 @@ declare module 'sonarish-types' {
   declare type $Priority = number
 
   // Internal usage of Eslint
+  declare type eslint$ResultMessage = {
+    source: string,
+    ruleId: string,
+    message: string,
+    line: number,
+    column: number
+  }
+
+  declare type eslint$FileScopeResult = {
+    filePath: string,
+    errorCount: number,
+    warningCount: number,
+    messages: Array<eslint$ResultMessage>
+  }
+
   declare type eslint$CLIEngineResult = {
     errorCount: number,
     warningCount: number,
-    results: Array<{
-      filePath: string,
-      errorCount: number,
-      warningCount: number,
-      messages: Array<{
-        source: string,
-        ruleId: string,
-        message: string,
-        line: number,
-        column: number
-      }>
-    }>
+    results: Array<eslint$FileScopeResult>
   }
 
   declare type eslint$CLIEngineOptions = {
@@ -35,18 +39,19 @@ declare module 'sonarish-types' {
   }
 
   // Domain
-  // declare type Ruleset = {
-  //   name: string,
-  //   type: 'eslint', // TODO: Add other types
-  //   // calcScore(result: eslint$CLIEngineResult, ruleset: EslintRulesetInternal): number
-  // }
+  declare type Stats = {
+    totalScore: number,
+    scoresByRule: {|string|: number}
+  }
 
   declare type RulesetReport = {
     type: 'eslint',
     eslintRuleset: EslintRuleset,
     eslintRawResult: eslint$CLIEngineResult,
-    score: number
+    stats: Stats
   }
+
+  declare type Ruleset = EslintRuleset
 
   declare type EslintRuleset = {
     name: string,
@@ -69,15 +74,19 @@ declare module 'sonarish-types' {
     scoreMap: { [rule: string]: $Priority }
   }
 
+  // API
   declare type $buildEslintRuleset = (EslintRuleset, ?eslint$CLIEngineOptions) => EslintRulesetInternal
+
   declare type $execEslintOnProject = (
     string,
     eslint$CLIEngineOptions
   ) => eslint$CLIEngineResult
-  declare type $calcScore = (
+
+  declare type $calcStats = (
     result: eslint$CLIEngineResult,
     scoreMap: { [rule: string]: $Priority }
-  ) => number
+  ) => Stats
+
   declare type $report = (
     projectRootPath: string,
     opts?: Object

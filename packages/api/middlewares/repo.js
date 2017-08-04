@@ -15,9 +15,11 @@ export default (req: any, res: any) => {
       message: `There is no ${name}`
     })
   }
+  const raw = fs.readFileSync(repoPath).toString()
+  const data = JSON.parse(raw)
   res.send({
     error: false,
     name,
-    data: require(repoPath)
+    data
   })
 }

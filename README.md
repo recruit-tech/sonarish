@@ -14,6 +14,16 @@ lerna bootstrap
 npm start
 ```
 
+## Architecture
+
+```
+- core : Scoring
+- cli <- core : Download modules via fs and git and generate results of core's score
+- web : Read score dump and display
+- eslint-plugin-sonarish : Advanced eslint rules
+
+```
+
 ## License
 
 MIT

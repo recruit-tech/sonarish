@@ -1,11 +1,11 @@
 /* @flow */
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable import/no-unresolved */
 import { CLIEngine } from 'eslint'
+import flatten from 'lodash.flatten'
+import groupBy from 'lodash.groupby'
 import type {
   EslintRuleset,
   $report,
-  $calcScore,
+  $calcStats,
   $execEslintOnProject,
   $buildEslintRuleset
 } from 'sonarish-types'
@@ -73,8 +73,38 @@ export const execEslintOnProject: $execEslintOnProject = (
   opts
 ) => new CLIEngine(opts).executeOnFiles([projectRootPath])
 
-export const calcScore: $calcScore = (_result, _scoreMap) => {
-  return 0
+const MAX_CONSIDERING_ERROR = 30
+const calc = (count: number) => {
+  return Math.sqrt(
+    Math.min(count, MAX_CONSIDERING_ERROR) / MAX_CONSIDERING_ERROR
+  )
+}
+
+export const calcStats: $calcStats = (result, scoreMap) => {
+  const messages = flatten(result.results.map(r => r.messages))
+  const groupedMessages = groupBy(messages, m => m.ruleId)
+  const rules = Object.keys(groupedMessages).filter(i => !!i && i !== 'null')
+
+  const scoresByRule = rules
+    .map(rule => {
+      const count = groupedMessages[rule].length
+      const priority = scoreMap[rule]
+      return {
+        [rule]: priority * calc(count)
+      }
+    })
+    .reduce((acc, r) => ({ ...acc, ...r }), {})
+
+  const values: any = Object.values // TODO: Grasp flow
+  const totalScore = values(scoresByRule).reduce(
+    (sum: number, i: number) => sum + i,
+    0
+  )
+
+  return {
+    totalScore,
+    scoresByRule
+  }
 }
 
 export const report: $report = (projectRootPath, _opts) => {
@@ -86,15 +116,26 @@ export const report: $report = (projectRootPath, _opts) => {
       projectRootPath,
       rulesetInternal.eslintOptions
     )
-    const score = calcScore(eslintRawResult, rulesetInternal.scoreMap)
+    const stats = calcStats(eslintRawResult, rulesetInternal.scoreMap)
     return {
       name: 'code-quality',
       type: 'eslint',
       eslintRuleset: ruleset,
       eslintRawResult,
-      score
+      stats
     }
   })
 }
 
-console.log(report('/Users/uu110013/.sonarish/repos/express'))
+// debug
+// const ret = report('/Users/uu110013/.sonarish/repos/express')
+// const eslintResult = ret[0].eslintRawResult
+// const messages = flatten(eslintResult.results.map(r => r.messages))
+// const groupedMessages = groupBy(messages, m => m.ruleId)
+//
+// const rules = Object.keys(groupedMessages)
+// const scoreMap = buildEslintRuleset(rulesetList[0]).scoreMap
+// rules.map(rule => {
+//   const count = groupedMessages[rule].length
+//   console.log(rule, count, scoreMap[rule])
+// })
