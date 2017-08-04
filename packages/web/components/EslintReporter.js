@@ -5,7 +5,7 @@ import type {
   eslint$ResultMessage
 } from 'sonarish-types'
 
-function EslintMessage({ message }: { message: eslint$ResultMessage }) {
+function EslintLineMessage({ message }: { message: eslint$ResultMessage }) {
   return (
     <div>
       <div>
@@ -26,24 +26,27 @@ export default function EslintReporter(props: {
   const { data } = props
   return (
     <div>
-      Error: {data.errorCount} in file
+      Error: {data.errorCount}
       <div>
-        {data.results.map(result => {
-          return (
-            <div key={result.filePath}>
-              <h4>
-                {result.filePath}
-              </h4>
-              <ul>
-                {result.messages.map((message, i) =>
-                  <li key={i}>
-                    <EslintMessage message={message} />
-                  </li>
-                )}
-              </ul>
-            </div>
-          )
-        })}
+        {data.results
+          .filter(i => i.messages.length)
+          .slice(0, 20) // TODO: Show open all button
+          .map(result => {
+            return (
+              <div key={result.filePath}>
+                <h4>
+                  {result.filePath}
+                </h4>
+                <ul>
+                  {result.messages.map((message, i) =>
+                    <li key={i}>
+                      <EslintLineMessage message={message} />
+                    </li>
+                  )}
+                </ul>
+              </div>
+            )
+          })}
       </div>
     </div>
   )
