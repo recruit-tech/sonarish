@@ -7,16 +7,17 @@
     "start": "next"
   },
   "dependencies": {
-    "sonarish-core": "^0.0.0",
     "babel-eslint": "^7.2.3",
     "express": "^4.15.3",
     "isomorphic-fetch": "^2.2.1",
+    "lodash.sortby": "^4.7.0",
     "mkdirp": "^0.5.1",
-    "next": "3.0.0-beta16",
+    "next": "^3.0.0-beta16",
     "nodegit": "^0.18.3",
     "rc-collapse": "^1.7.6",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "sonarish-core": "^0.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0",

@@ -5,12 +5,14 @@ const path = require('path')
 const { execSync } = require('child_process')
 const mkdirp = require('mkdirp')
 const sonarish = require('sonarish-core')
+// const rulesetList = require('sonarish-ruleset')
 const { gitUrlToName, cloneOrRebase } = require('./util')
 const { loadDb, registerRepo, initDb } = require('./storage')
+const { CLIEngine } = require('eslint')
 
 // cli parser
 const argv = require('minimist')(process.argv.slice(2))
-const [ $0, $1 ] = argv._
+const [$0, $1] = argv._
 
 // constants
 const SONARISH_PATH = argv.path || path.join(process.env.HOME, '.sonarish')
@@ -21,6 +23,9 @@ const DB_PATH = path.join(SONARISH_PATH, 'db.json')
 function isRunnable() {
   return !!fs.existsSync(SONARISH_PATH)
 }
+
+const execEslintOnProject = (projectRootPath, opts) =>
+  new CLIEngine(opts).executeOnFiles([projectRootPath])
 
 switch ($0) {
   case 'init': {
@@ -46,6 +51,31 @@ switch ($0) {
     registerRepo(DB_PATH, gitUrl)
     cloneOrRebase(gitUrl, path.join(REPO_DIR_PATH, name))
     console.log('add', $1)
+    break
+  }
+  case 'run-eslint': {
+    if (!isRunnable()) {
+      console.error('You need to run `sonarish init` first')
+      process.exit(1)
+    }
+
+    const db = loadDb(DB_PATH)
+    const rulesetList = sonarish._getRulesetList()
+    db.repos.map(repo => {
+      const repoPath = path.join(REPO_DIR_PATH, repo.name)
+      const result = rulesetList.reduce((acc, ruleset) => {
+        const { eslintOptions } = sonarish.buildEslintRuleset(ruleset)
+        // console.log(opts)
+        const r = execEslintOnProject(repoPath, eslintOptions)
+        // return { ...acc, [ruleset.name]: r }
+        return Object.assign(acc, { [ruleset.name]: r })
+      }, {})
+
+      // const result = execEslintOnProject(projectRootPath, opts)
+      const resultPath = path.join(RESULT_DIR_PATH, repo.name + '.eslint.json')
+      fs.writeFileSync(resultPath, JSON.stringify(result))
+      console.log('gen >', resultPath)
+    })
     break
   }
   case 'gen': {

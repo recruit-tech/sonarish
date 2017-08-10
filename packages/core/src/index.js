@@ -3,134 +3,17 @@ import { CLIEngine } from 'eslint'
 import flatten from 'lodash.flatten'
 import groupBy from 'lodash.groupby'
 import type {
-  EslintRuleset,
   $report,
   $calcStats,
   $execEslintOnProject,
   $buildEslintRuleset
 } from 'sonarish-types'
+import rulesetList from 'sonarish-ruleset'
 
 const ERR = 2
 
-const rulesetList: EslintRuleset[] = [
-  {
-    name: 'complexity',
-    type: 'eslint',
-    eslintOptions: {
-      parser: 'babel-eslint',
-      plugins: ['mutation']
-    },
-    scoreRules: [
-      {
-        rule: 'mutation/no-mutation',
-        priority: 1,
-        args: [{ exceptions: ['this', 'that', 'global', 'window', 'module'] }]
-      }
-    ]
-  },
-  {
-    name: 'best-practice',
-    type: 'eslint',
-    eslintOptions: {
-      parser: 'babel-eslint',
-      plugins: ['eslint-comments', 'promise', 'compat', 'deprecate', 'import']
-    },
-    scoreRules: [
-      // deprecate
-      // compat
-      {
-        rule: 'compat/compat',
-        priority: 1
-      },
-      // import
-      {
-        rule: 'import/no-extraneous-dependencies',
-        priority: 3
-      },
-      {
-        rule: 'import/no-mutable-exports',
-        priority: 2
-      },
-      // promise
-      {
-        rule: 'promise/catch-or-return',
-        priority: 2
-      },
-      {
-        rule: 'promise/no-nesting',
-        priority: 2
-      },
-      {
-        rule: 'promise/no-return-wrap',
-        priority: 2
-      },
-      {
-        rule: 'promise/always-return',
-        priority: 2
-      },
-      // eslint-comments
-      {
-        rule: 'eslint-comments/no-use',
-        priority: 3
-      },
-      // eslint
-      // {
-      //   rule: 'no-undef',
-      //   priority: 3,
-      //   args: [{ exceptions: ['require', 'module', 'global', 'window'] }]
-      // },
-      {
-        rule: 'no-unused-vars',
-        priority: 1,
-        args: [{ varsIgnorePattern: '^_|React' }]
-      },
-      {
-        rule: 'no-multiple-empty-lines',
-        priority: 2,
-        args: [{ max: 3 }]
-      },
-      {
-        rule: 'eqeqeq',
-        args: ['smart'],
-        priority: 1
-      },
-      {
-        rule: 'no-console',
-        priority: 1
-      },
-      {
-        rule: 'no-ex-assign',
-        priority: 4
-      },
-      {
-        rule: 'no-dupe-keys',
-        priority: 3
-      },
-      {
-        rule: 'no-dupe-args',
-        priority: 3
-      },
-      {
-        rule: 'no-debugger',
-        priority: 2
-      },
-      {
-        rule: 'no-global-assign',
-        priority: 4,
-        args: [{ exceptions: ['window'] }]
-      },
-      // ES2015
-      {
-        rule: 'prefer-const',
-        priority: 2
-      },
-      {
-        rule: 'prefer-arrow-callback',
-        priority: 2
-      }
-    ]
-  }
-]
+// debug
+export const _getRulesetList = () => rulesetList
 
 // TODO: Merge with project eslint
 export const buildEslintRuleset: $buildEslintRuleset = (
@@ -177,15 +60,12 @@ export const calcStats: $calcStats = (result, scoreMap) => {
   const rules = Object.keys(groupedMessages).filter(i => !!i && i !== 'null')
   const sumOfPriorities = values(scoreMap).reduce((sum, i) => sum + i, 0)
 
-  // console.log('sumOfPriorities', sumOfPriorities, scoreMap)
-
   const scoresByRule = rules
     .map(rule => {
       const count = groupedMessages[rule].length
       const priority = scoreMap[rule]
       const weight = priority / sumOfPriorities
       const point = norm(count) * weight
-      console.log('----', { weight, sumOfPriorities, count, point })
       return {
         [rule]: {
           count,
@@ -206,6 +86,11 @@ export const calcStats: $calcStats = (result, scoreMap) => {
     totalScore,
     scoresByRule
   }
+}
+
+export const reportStats = (eslintRawResult: any, scoreMap: any) => {
+  const stats = calcStats(eslintRawResult, scoreMap)
+  return stats
 }
 
 export const report: $report = (projectRootPath, _opts) => {

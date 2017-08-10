@@ -1,12 +1,15 @@
 /* @flow */
 import React from 'react'
+import sortBy from 'lodash.sortby'
 import type { eslint$CLIEngineResult, Stats } from 'sonarish-types'
 import EslintReporter from './EslintReporter'
 import Opener from './Opener'
 
-function truncate(n: number, size: number = 1): number {
-  return ~~(n * size) / size
-}
+// function truncate(n: number, size: number = 1): number {
+//   return ~~(n * size) / size
+// }
+
+const entries: any = Object.entries
 
 export default function RulesetReporter({
   eslintRawResult,
@@ -39,13 +42,14 @@ export default function RulesetReporter({
               }}
             >
               <ul>
-                {Object.entries(
-                  stats.scoresByRule
-                ).map(([rule, score], index) => {
+                {sortBy(
+                  entries(stats.scoresByRule),
+                  ([_, stats]) => stats.point
+                ).map(([rule, stats], index) => {
                   return (
                     <li key={index}>
-                      {rule}: count: {score.count} / priority: {score.priority}
-                      / weight: {score.weight}
+                      {rule}: count: {stats.count} / priority: {stats.priority}
+                      / weight: {stats.weight}
                     </li>
                   )
                 })}

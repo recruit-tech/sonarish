@@ -24,7 +24,5 @@
     "npm-run-all": "^4.0.2",
     "prettier": "^1.5.3"
   },
-  "yarn": {
-    "ignore-symlinked": true
-  }
+  "workspaces": ["packages/*"]
 }
