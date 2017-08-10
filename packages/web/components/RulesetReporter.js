@@ -4,6 +4,10 @@ import type { eslint$CLIEngineResult, Stats } from 'sonarish-types'
 import EslintReporter from './EslintReporter'
 import Opener from './Opener'
 
+function truncate(n: number, size: number = 1): number {
+  return ~~(n * size) / size
+}
+
 export default function RulesetReporter({
   eslintRawResult,
   name,
@@ -20,7 +24,7 @@ export default function RulesetReporter({
       </h3>
       <div>
         <div>
-          Score: <span>{~~(100 - stats.totalScore)}</span>
+          Score: <span>{100 - 100 * stats.totalScore}</span>
         </div>
 
         <Opener
@@ -40,7 +44,8 @@ export default function RulesetReporter({
                 ).map(([rule, score], index) => {
                   return (
                     <li key={index}>
-                      {rule}: {~~(1000 * parseInt(score, 10)) / 1000}
+                      {rule}: count: {score.count} / priority: {score.priority}
+                      / weight: {score.weight}
                     </li>
                   )
                 })}

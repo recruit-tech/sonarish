@@ -152,8 +152,8 @@ export const buildEslintRuleset: $buildEslintRuleset = (
       useEslintrc: false,
       rules
     },
-    defaultErrorScore: 1,
-    defaultWarningScore: 3,
+    defaultErrorScore: 3,
+    defaultWarningScore: 1,
     scoreMap: ruleset.scoreRules.reduce((acc, i) => {
       return { ...acc, [i.rule]: i.priority }
     }, {})
@@ -165,31 +165,40 @@ export const execEslintOnProject: $execEslintOnProject = (
   opts
 ) => new CLIEngine(opts).executeOnFiles([projectRootPath])
 
-const MAX_CONSIDERING_ERROR = 150
-const calc = (count: number) => {
-  return Math.sqrt(
-    Math.min(count, MAX_CONSIDERING_ERROR) / MAX_CONSIDERING_ERROR
-  )
+const norm = (count: number, threshold = 150) => {
+  return Math.sqrt(Math.min(count, threshold) / threshold)
 }
+
+const values: any = Object.values // TODO: Grasp flow
 
 export const calcStats: $calcStats = (result, scoreMap) => {
   const messages = flatten(result.results.map(r => r.messages))
   const groupedMessages = groupBy(messages, m => m.ruleId)
   const rules = Object.keys(groupedMessages).filter(i => !!i && i !== 'null')
+  const sumOfPriorities = values(scoreMap).reduce((sum, i) => sum + i, 0)
+
+  // console.log('sumOfPriorities', sumOfPriorities, scoreMap)
 
   const scoresByRule = rules
     .map(rule => {
       const count = groupedMessages[rule].length
       const priority = scoreMap[rule]
+      const weight = priority / sumOfPriorities
+      const point = norm(count) * weight
+      console.log('----', { weight, sumOfPriorities, count, point })
       return {
-        [rule]: priority * calc(count)
+        [rule]: {
+          count,
+          priority,
+          weight,
+          point
+        }
       }
     })
     .reduce((acc, r) => ({ ...acc, ...r }), {})
 
-  const values: any = Object.values // TODO: Grasp flow
   const totalScore = values(scoresByRule).reduce(
-    (sum: number, i: number) => sum + i,
+    (sum: number, i) => sum + i.point,
     0
   )
 

@@ -41,7 +41,11 @@ declare module 'sonarish-types' {
   // Domain
   declare type Stats = {
     totalScore: number,
-    scoresByRule: {|string|: number}
+    scoresByRule: {|string|: {
+      count: number,
+      priority: number,
+      weight: number,
+    }}
   }
 
   declare type RulesetReport = {
