@@ -17,14 +17,16 @@ $ cd your-project
 $ sonarish . # Show sonarish stats
 ```
 
-Use your `.sonarishrc.json`
+Using your `.sonarishrc.json`
 
 ```json
 {
   "eslintOptions": {
-    "parser": "babel-eslint"
+    "parser": "babel-eslint",
+    "useEslintrc": true
   },
   "extends": ["sonarish-ruleset/recommended"],
+  "prefer": "sonarish|eslint",
   "scoreRules": {
     "code-quality": [
       {
