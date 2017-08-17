@@ -1,5 +1,5 @@
 /* @flow */
-import React from 'react'
+import * as React from 'react';
 import type { eslint$CLIEngineResult, Stats } from 'sonarish-types'
 import EslintReporter from './EslintReporter'
 import Opener from './Opener'

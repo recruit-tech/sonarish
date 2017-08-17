@@ -5,7 +5,7 @@ import mkdirp from 'mkdirp'
 import { CLIEngine } from 'eslint'
 // const sonarish = require('sonarish-core')
 import { gitUrlToName, cloneOrRebase } from './util'
-import { loadDb, registerRepository, initDb } from './storage'
+import { loadDatabase, registerRepository, initDatabase } from './storage'
 
 // paths util
 export function isRunnable(basePath: string): boolean {
@@ -36,7 +36,7 @@ export function initWorkspace(basePath: string) {
   ensureWorkspace(basePath)
 
   const dbPath = getDbPath(basePath)
-  initDb(dbPath)
+  initDatabase(dbPath)
   console.log('init with', basePath)
 }
 
@@ -65,7 +65,7 @@ export function genEslintResult(
 
 export function genResults(basePath: string) {
   const dbPath = getDbPath(basePath)
-  const db = loadDb(dbPath)
+  const db = loadDatabase(dbPath)
   const reposPath = getReposPath(basePath)
   const resultsPath = getResultsPath(basePath)
 
@@ -79,7 +79,7 @@ export function genResults(basePath: string) {
 
 export function sync(basePath: string) {
   const dbPath = getDbPath(basePath)
-  const db = loadDb(dbPath)
+  const db = loadDatabase(dbPath)
   db.repos.map(repo => {
     cloneOrRebase(repo.gitUrl, repo.name)
   })

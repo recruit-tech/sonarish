@@ -1,12 +1,12 @@
 /* @flow */
-import React from 'react'
+import * as React from 'react';
 
-export default class Opener extends React.Component {
-  props: {
-    title: string,
-    content: () => any
-  }
-
+export default class Opener extends React.Component<{
+  title: string,
+  content: () => any
+}, {
+  opened: boolean
+}> {
   state: {
     opened: boolean
   } = {

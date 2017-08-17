@@ -1,14 +1,13 @@
 /* @flow */
-import React from 'react'
+import * as React from 'react';
 import Link from 'next/link'
 import Header from '../components/Header'
 
 const API_HOST = 'http://localhost:3001'
 
-export default class Index extends React.Component {
-  props: {
-    data: any
-  }
+export default class Index extends React.Component<{
+  data: any
+}> {
   static async getInitialProps() {
     const res = await fetch(API_HOST + `/repoList`)
     return res.json()
