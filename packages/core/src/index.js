@@ -1,25 +1,12 @@
 /* @flow */
-import { CLIEngine } from 'eslint'
 import flatten from 'lodash.flatten'
 import groupBy from 'lodash.groupby'
-import type {
-  $report,
-  $calcStats,
-  $execEslintOnProject,
-  $buildEslintRuleset
-} from 'sonarish-types'
-import rulesetList from 'sonarish-ruleset'
+import type { $report, $calcStats, $buildEslintRuleset } from 'sonarish-types'
 
 const ERR = 2
 
-// debug
-export const _getRulesetList = () => rulesetList
-
 // TODO: Merge with project eslint
-export const buildEslintRuleset: $buildEslintRuleset = (
-  ruleset,
-  _projectEslintrc // TODO: Use project default eslintrc
-) => {
+export const buildEslintRuleset: $buildEslintRuleset = ruleset => {
   const additionalRules = ruleset.scoreRules.reduce((acc, i) => {
     return { ...acc, [i.rule]: [ERR, ...(i.args || [])] }
   }, {})
@@ -42,11 +29,6 @@ export const buildEslintRuleset: $buildEslintRuleset = (
     }, {})
   }
 }
-
-export const execEslintOnProject: $execEslintOnProject = (
-  projectRootPath,
-  opts
-) => new CLIEngine(opts).executeOnFiles([projectRootPath])
 
 const norm = (count: number, threshold = 150) => {
   return Math.sqrt(Math.min(count, threshold) / threshold)
@@ -88,20 +70,20 @@ export const calcStats: $calcStats = (result, scoreMap) => {
   }
 }
 
-export const reportStats = (eslintRawResult: any, scoreMap: any) => {
-  const stats = calcStats(eslintRawResult, scoreMap)
-  return stats
-}
+// export const reportStats = (eslintRawResult: any, scoreMap: any) => {
+//   const stats = calcStats(eslintRawResult, scoreMap)
+//   return stats
+// }
 
 export const report: $report = (projectRootPath, _opts) => {
   // TODO: use project's eslint file
   // const projectEslintrc = fs.readFileSync(projectRootPath)
   return rulesetList.map(ruleset => {
     const rulesetInternal = buildEslintRuleset(ruleset)
-    const eslintRawResult = execEslintOnProject(
-      projectRootPath,
-      rulesetInternal.eslintOptions
-    )
+    // const eslintRawResult = execEslintOnProject(
+    //   projectRootPath,
+    //   rulesetInternal.eslintOptions
+    // )
     const stats = calcStats(eslintRawResult, rulesetInternal.scoreMap)
     return {
       name: ruleset.name,

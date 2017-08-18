@@ -1,13 +1,21 @@
 {
   "name": "sonarish-cli",
   "version": "0.0.0",
-  "main": "index.js",
+  "main": "lib/commands.js",
+  "bin": {
+    "sonarish": "bin/sonarish.js",
+    "sonarish-server": "bin/sonarish-server.js"
+  },
+  "scripts": {
+    "prepare": "babel src -d lib"
+  },
   "license": "MIT",
   "dependencies": {
     "eslint-plugin-mutation": "^1.0.0",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
-    "sonarish-core": "^0.0.0"
+    "sonarish-core": "0.0.0",
+    "sonarish-ruleset": "0.0.0"
   },
   "devDependencies": {
     "eslint": "^4.4.1"
