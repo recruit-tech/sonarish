@@ -11,6 +11,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "cli-table2": "^0.2.0",
     "eslint-plugin-mutation": "^1.0.0",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",

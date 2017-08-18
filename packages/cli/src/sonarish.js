@@ -1,12 +1,18 @@
-#!/usr/bin/env node
+/* @flow */
 import { buildEslintRuleset, calcStats } from 'sonarish-core'
 import rulesetList from 'sonarish-ruleset/recommended'
+import Table from 'cli-table2'
 import { execEslintOnProject } from './commands'
 
 // eslint-disable-next-line
 const argv = require('minimist')(process.argv.slice(2))
 
 const [$0] = argv._
+
+function format(stats: any) {
+  const viewableScore = Math.floor((1 - stats.totalScore) * 1000) / 10
+  return `score: ${viewableScore}/100`
+}
 
 if ($0) {
   // const result = commands.genEslintResult($0, rulesetList)
@@ -15,8 +21,32 @@ if ($0) {
     const rawResult = execEslintOnProject($0, eslintOptions)
     const stats = calcStats(rawResult, scoreMap)
     console.log('---', ruleset.name)
-    console.log(stats)
+    console.log(format(stats))
+    if (argv.detail) {
+      // console.log('  detail:')
+
+      // instantiate
+      const table = new Table({
+        head: ['rule', 'score', 'priority', 'count']
+      })
+
+      const scores = Object.entries(stats.scoresByRule)
+      scores.sort(([_0, a], [_1, b]) => b.point - a.point)
+
+      for (const [key, score] of scores) {
+        const p = -(~~(score.point * 1000) / 10)
+        // table.push({ score: p }, { count: score.count })
+        table.push([key, p, score.priority, score.count])
+        // console.log('    ', key, p, '--', score.count)
+        // console.log(`    ${key} score:${p} violation:${score.count}`)
+      }
+      console.log(table.toString())
+    }
   })
+
+  if (!argv.detail) {
+    console.log('\nuse -d to know detail')
+  }
 
   // console.log('TODO: calcStats', result)
 } else {
