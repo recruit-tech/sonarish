@@ -1,12 +1,12 @@
 /* @flow */
 import { RuleTester } from 'eslint'
-import rule from '../../src/rules/op-in-if'
+import rule from '../../src/rules/max-logic-operator'
 
 const ruleTester = new RuleTester({
   parser: 'babel-eslint'
 })
 
-ruleTester.run('op-in-if', rule, {
+ruleTester.run('max-logic-operator', rule, {
   valid: ['if (a && b && c) {}'],
 
   invalid: [

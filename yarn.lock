@@ -2334,6 +2334,12 @@ eslint-plugin-eslint-comments@^1.0.2:
   dependencies:
     escape-string-regexp "^1.0.5"
 
+eslint-plugin-filesize@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-filesize/-/eslint-plugin-filesize-0.1.2.tgz#990f89d9bf9ef1018054344dcfee65fa87868787"
+  dependencies:
+    uglify-js "^2.5.0"
+
 eslint-plugin-flowtype@^2.35.0:
   version "2.35.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.35.0.tgz#d17494f0ae8b727c632d8b9d4b4a848e7e0c04af"
@@ -5893,7 +5899,7 @@ ua-parser-js@^0.7.9:
   version "0.7.14"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.14.tgz#110d53fa4c3f326c121292bbeac904d2e03387ca"
 
-uglify-js@^2.6, uglify-js@^2.8.29:
+uglify-js@^2.5.0, uglify-js@^2.6, uglify-js@^2.8.29:
   version "2.8.29"
   resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.29.tgz#29c5733148057bb4e1f75df35b7a9cb72e6a59dd"
   dependencies:

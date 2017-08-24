@@ -1,6 +1,6 @@
 /* @flow */
-import opInIf from './rules/op-in-if'
+import maxLogicOperator from './rules/max-logic-operator'
 
 export default {
-  'cond-depth': opInIf
+  'max-logic-operator': maxLogicOperator
 }

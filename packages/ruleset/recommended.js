@@ -1,17 +1,70 @@
 /* eslint-disable */
 module.exports = [
   {
+    name: 'meta-comments',
+    type: 'eslint',
+    eslintOptions: {
+      parser: 'babel-eslint',
+      plugins: ['eslint-comments']
+    },
+    scoreRules: [
+      // eslint-comments
+      {
+        rule: 'eslint-comments/no-use',
+        priority: 1
+      },
+      {
+        rule: 'eslint-comments/no-unused-disable',
+        priority: 1
+      },
+      {
+        rule: 'eslint-comments/no-unused-enable',
+        priority: 1
+      },
+      {
+        rule: 'no-warning-comments',
+        args: [{ terms: ['todo', 'fixme', 'xxx'], location: 'start' }],
+        priority: 4
+      }
+    ]
+  },
+  {
     name: 'complexity',
     type: 'eslint',
     eslintOptions: {
       parser: 'babel-eslint',
-      plugins: ['mutation']
+      plugins: ['mutation', 'filesize']
     },
     scoreRules: [
       {
         rule: 'mutation/no-mutation',
         priority: 1,
         args: [{ exceptions: ['this', 'that', 'global', 'window', 'module'] }]
+      },
+      {
+        rule: 'no-unreachable',
+        priority: 4
+      },
+      {
+        rule: 'no-cond-assign',
+        priority: 4
+      },
+      {
+        rule: 'no-func-assign',
+        priority: 3
+      },
+      {
+        rule: 'no-param-reassign',
+        priority: 3
+      },
+      {
+        rule: 'no-shadow',
+        priority: 2
+      },
+      {
+        rule: 'max-lines',
+        args: [{ max: 300, skipBlankLines: true }],
+        priority: 2
       }
     ]
   },
@@ -23,7 +76,6 @@ module.exports = [
       plugins: ['eslint-comments', 'promise', 'compat', 'deprecate', 'import']
     },
     scoreRules: [
-      // deprecate
       // compat
       {
         rule: 'compat/compat',
@@ -39,10 +91,10 @@ module.exports = [
         priority: 2
       },
       // promise
-      {
-        rule: 'promise/catch-or-return',
-        priority: 2
-      },
+      // {
+      //   rule: 'promise/catch-or-return',
+      //   priority: 2
+      // },
       {
         rule: 'promise/no-nesting',
         priority: 2
@@ -55,17 +107,7 @@ module.exports = [
         rule: 'promise/always-return',
         priority: 2
       },
-      // eslint-comments
-      {
-        rule: 'eslint-comments/no-use',
-        priority: 3
-      },
       // eslint
-      // {
-      //   rule: 'no-undef',
-      //   priority: 3,
-      //   args: [{ exceptions: ['require', 'module', 'global', 'window'] }]
-      // },
       {
         rule: 'no-unused-vars',
         priority: 1,
@@ -113,6 +155,14 @@ module.exports = [
       },
       {
         rule: 'prefer-arrow-callback',
+        priority: 2
+      },
+      {
+        rule: 'no-return-await',
+        priority: 2
+      },
+      {
+        rule: 'no-class-assign',
         priority: 2
       }
     ]
