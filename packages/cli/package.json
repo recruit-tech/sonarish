@@ -7,6 +7,7 @@
     "sonarish-server": "bin/sonarish-server.js"
   },
   "scripts": {
+    "prepublish": "babel src -d lib",
     "prepare": "babel src -d lib"
   },
   "license": "MIT",
@@ -19,10 +20,7 @@
     "sonarish-core": "^0.1.0-alpha.c7378d68",
     "sonarish-ruleset": "^0.1.0-alpha.c7378d68"
   },
-  "files": [
-    "lib",
-    "bin"
-  ],
+  "files": ["lib", "bin"],
   "devDependencies": {
     "eslint": "^4.4.1"
   }

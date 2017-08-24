@@ -4,6 +4,7 @@
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
+    "prepublish": "babel src -d lib",
     "prepare": "babel src -d lib"
   },
   "dependencies": {
@@ -22,10 +23,7 @@
     "lodash.range": "^3.2.0",
     "lodash.sortby": "^4.7.0"
   },
-  "files": [
-    "lib",
-    "bin"
-  ],
+  "files": ["lib", "bin"],
   "devDependencies": {
     "ava": "^0.21.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0"

@@ -2,6 +2,7 @@
   "name": "sonarish-server-api",
   "version": "0.1.0-alpha.c7378d68",
   "main": "index.js",
+  "private": true,
   "license": "MIT",
   "scripts": {
     "start": "nodemon index.js --exec babel-node"
