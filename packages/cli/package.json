@@ -1,6 +1,6 @@
 {
   "name": "sonarish-cli",
-  "version": "0.0.0",
+  "version": "0.1.0-alpha.c7378d68",
   "main": "lib/commands.js",
   "bin": {
     "sonarish": "bin/sonarish.js",
@@ -16,10 +16,13 @@
     "eslint-plugin-mutation": "^1.0.0",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
-    "sonarish-core": "0.0.0",
-    "sonarish-ruleset": "0.0.0"
+    "sonarish-core": "^0.1.0-alpha.c7378d68",
+    "sonarish-ruleset": "^0.1.0-alpha.c7378d68"
   },
-  "files": ["lib", "bin"],
+  "files": [
+    "lib",
+    "bin"
+  ],
   "devDependencies": {
     "eslint": "^4.4.1"
   }
