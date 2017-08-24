@@ -42,12 +42,15 @@ export const calcStats: $calcStats = (result, scoreMap) => {
   const rules = Object.keys(groupedMessages).filter(i => !!i && i !== 'null')
   const sumOfPriorities = values(scoreMap).reduce((sum, i) => sum + i, 0)
 
+  // Consider file count to drop point in small project
+  const threshold = Math.min(100, result.results.length)
+
   const scoresByRule = rules
     .map(rule => {
       const count = groupedMessages[rule].length
       const priority = scoreMap[rule]
       const weight = priority / sumOfPriorities
-      const point = norm(count) * weight
+      const point = norm(count, threshold) * weight
       return {
         [rule]: {
           count,

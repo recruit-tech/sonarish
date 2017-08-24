@@ -72,7 +72,7 @@ export function genResultMapFile(basePath: string, rulesetList: any) {
   db.repos.map(repo => {
     const projectRootPath = path.join(reposPath, repo.name)
     const outPath = path.join(resultsPath, repo.name + '.eslint.json')
-    const resultMap = buildResultMap(projectRootPath, rulesetList, outPath)
+    const resultMap = buildResultMap(projectRootPath, rulesetList)
     fs.writeFileSync(outPath, JSON.stringify(resultMap))
     console.log('gen >', outPath)
   })

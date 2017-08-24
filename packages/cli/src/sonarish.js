@@ -1,4 +1,5 @@
 /* @flow */
+import path from 'path'
 import { buildEslintRuleset, calcStats } from 'sonarish-core'
 import rulesetList from 'sonarish-ruleset/recommended'
 import Table from 'cli-table2'
@@ -18,7 +19,9 @@ if ($0) {
   // const result = commands.genEslintResult($0, rulesetList)
   rulesetList.map(ruleset => {
     const { eslintOptions, scoreMap } = buildEslintRuleset(ruleset)
-    const rawResult = execEslintOnProject($0, eslintOptions)
+    const target = argv.target || ''
+    const execPath = path.join($0, target)
+    const rawResult = execEslintOnProject(execPath, eslintOptions)
     const stats = calcStats(rawResult, scoreMap)
     console.log('---', ruleset.name)
     console.log(format(stats))
@@ -45,7 +48,7 @@ if ($0) {
   })
 
   if (!argv.detail) {
-    console.log('\nuse -d to know detail')
+    console.log('\nuse --detail to know detail')
   }
 
   // console.log('TODO: calcStats', result)
