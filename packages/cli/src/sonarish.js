@@ -16,7 +16,6 @@ function format(stats: any) {
 }
 
 if ($0) {
-  // const result = commands.genEslintResult($0, rulesetList)
   rulesetList.map(ruleset => {
     const { eslintOptions, scoreMap } = buildEslintRuleset(ruleset)
     const target = argv.target || ''
