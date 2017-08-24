@@ -1,6 +1,6 @@
 {
   "name": "sonarish-web-frontend",
-  "version": "0.1.0-alpha.c7378d68",
+  "version": "0.0.1",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -17,7 +17,7 @@
     "rc-collapse": "^1.7.6",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "sonarish-core": "^0.1.0-alpha.c7378d68"
+    "sonarish-core": "^0.0.1"
   },
   "devDependencies": {
     "nodemon": "^1.11.0",

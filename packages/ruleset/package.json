@@ -1,6 +1,6 @@
 {
   "name": "sonarish-ruleset",
-  "version": "0.1.0-alpha.c7378d68",
+  "version": "0.0.1",
   "main": "index.js",
   "license": "MIT"
 }
