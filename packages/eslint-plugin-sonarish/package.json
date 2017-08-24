@@ -8,6 +8,7 @@
     "babel-eslint": "^7.2.3",
     "eslint": "^4.2.0"
   },
+  "files": ["lib", "bin"],
   "scripts": {
     "prepare": "babel src -d lib",
     "test": "ava"

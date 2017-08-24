@@ -22,6 +22,7 @@
     "lodash.range": "^3.2.0",
     "lodash.sortby": "^4.7.0"
   },
+  "files": ["lib", "bin"],
   "devDependencies": {
     "ava": "^0.21.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0"

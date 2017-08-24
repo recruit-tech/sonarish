@@ -19,6 +19,7 @@
     "sonarish-core": "0.0.0",
     "sonarish-ruleset": "0.0.0"
   },
+  "files": ["lib", "bin"],
   "devDependencies": {
     "eslint": "^4.4.1"
   }
