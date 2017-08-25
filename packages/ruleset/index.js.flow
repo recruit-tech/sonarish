@@ -1,4 +1,0 @@
-/* @flow */
-import type { EslintRuleset } from 'sonarish-types'
-
-declare module.exports: EslintRuleset[]

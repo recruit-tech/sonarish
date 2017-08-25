@@ -1,6 +1,6 @@
 {
   "name": "sonarish-ruleset",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "es201x.js",
   "license": "MIT"
 }
