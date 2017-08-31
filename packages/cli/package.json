@@ -1,6 +1,6 @@
 {
   "name": "sonarish-cli",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": "lib/commands.js",
   "bin": {
     "sonarish": "bin/sonarish.js",
@@ -18,8 +18,8 @@
     "js-yaml": "^3.9.1",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
-    "sonarish-core": "^0.2.0",
-    "sonarish-ruleset": "^0.2.2"
+    "sonarish-core": "^0.2.3",
+    "sonarish-ruleset": "^0.2.3"
   },
   "files": [
     "lib",
