@@ -69,7 +69,13 @@ export function buildEslintOnProject(projectRootPath: string, opts: any) {
 
 export function getDefaultEslintConfig(projectRootPath: string, opts: any) {
   const cli = buildEslintOnProject(projectRootPath, opts)
-  return cli.getConfigForFile('.')
+  try {
+    return cli.getConfigForFile('.')
+  } catch (e) {
+    return {
+      rules: {}
+    }
+  }
 }
 
 export function execEslintOnProject(
