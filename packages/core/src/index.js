@@ -23,8 +23,6 @@ export const buildEslintRuleset: $buildEslintRuleset = ruleset => {
     name: ruleset.name,
     eslintOptions: {
       ...ruleset.eslintOptions,
-      ignore: true,
-      // ignorePath: '.eslintignore',
       useEslintrc: false,
       rules
     },

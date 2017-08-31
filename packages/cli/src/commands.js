@@ -51,11 +51,12 @@ export function add(basePath: string, gitUrl: string) {
 }
 
 // utils
-export function execEslintOnProject(projectRootPath: string, opts: any) {
+export function buildEslintOnProject(projectRootPath: string, opts: any) {
+  const ignorePath = path.join(projectRootPath, '.eslintignore')
   return new CLIEngine({
     ...opts,
     ignore: true,
-    ignorePath: path.join(projectRootPath, '.eslintignore'),
+    ignorePath: fs.existsSync(ignorePath) ? ignorePath : null,
     ignorePattern: [
       path.join(projectRootPath, 'node_modules'),
       path.join(projectRootPath, '**', 'node_modules'),
@@ -63,13 +64,31 @@ export function execEslintOnProject(projectRootPath: string, opts: any) {
       path.join(projectRootPath, 'public'),
       path.join(projectRootPath, 'out')
     ]
-  }).executeOnFiles([projectRootPath])
+  })
+}
+
+export function getDefaultEslintConfig(projectRootPath: string, opts: any) {
+  const cli = buildEslintOnProject(projectRootPath, opts)
+  return cli.getConfigForFile('.')
+}
+
+export function execEslintOnProject(
+  projectRootPath: string,
+  targets: string[],
+  opts: any
+) {
+  const cli = buildEslintOnProject(projectRootPath, opts)
+  return cli.executeOnFiles(
+    targets.length === 0
+      ? [projectRootPath]
+      : targets.map(t => path.join(projectRootPath, t))
+  )
 }
 
 export function buildResultMap(projectRootPath: string, rulesetList: any) {
   return rulesetList.reduce((acc, ruleset) => {
     const { eslintOptions } = buildEslintRuleset(ruleset)
-    const r = execEslintOnProject(projectRootPath, eslintOptions)
+    const r = execEslintOnProject(projectRootPath, [], eslintOptions)
     return { ...acc, [ruleset.name]: r }
   }, {})
 }
