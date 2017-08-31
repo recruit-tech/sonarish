@@ -1,10 +1,9 @@
 /* eslint-disable */
 
 const es5 = require('./best-practice-es5')
-const originalScoreMap = es5.scoreMap.slice()
 
 module.exports = Object.assign({}, es5, {
-  scoreMap: originalScoreMap.concat([
+  scoreRules: es5.scoreRules.concat([
     {
       rule: 'prefer-const',
       priority: 2

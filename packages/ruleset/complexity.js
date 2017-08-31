@@ -41,4 +41,4 @@ module.exports = {
       priority: 2
     }
   ]
-},
+}

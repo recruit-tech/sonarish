@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import path from 'path'
-import rulesetList from 'sonarish-ruleset/recommended'
+import rulesetList from 'sonarish-ruleset/es201x'
 import * as commands from './commands'
 
 const argv = require('minimist')(process.argv.slice(2))

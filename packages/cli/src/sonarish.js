@@ -1,7 +1,7 @@
 /* @flow */
 import path from 'path'
 import { buildEslintRuleset, calcStats } from 'sonarish-core'
-import rulesetList from 'sonarish-ruleset/recommended'
+import rulesetList from 'sonarish-ruleset/es201x'
 import Table from 'cli-table2'
 import { execEslintOnProject } from './commands'
 
@@ -25,9 +25,6 @@ if ($0) {
     console.log('---', ruleset.name)
     console.log(format(stats))
     if (argv.detail) {
-      // console.log('  detail:')
-
-      // instantiate
       const table = new Table({
         head: ['rule', 'score', 'priority', 'count']
       })
