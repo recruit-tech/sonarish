@@ -47,7 +47,8 @@ export const calcStats: $calcStats = (result, scoreMap) => {
 
   const scoresByRule = rules
     .map(rule => {
-      const count = groupedMessages[rule].length || 0
+      const ruleStat = groupedMessages[rule]
+      const count = ruleStat.length || 0
       const priority = scoreMap[rule] || 0
       const weight = priority / sumOfPriorities
       const point = norm(count, threshold) * weight

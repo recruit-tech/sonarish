@@ -3,6 +3,7 @@ import path from 'path'
 import rulesetList from 'sonarish-ruleset/es201x'
 import * as commands from './commands'
 
+// eslint-disable-next-line
 const argv = require('minimist')(process.argv.slice(2))
 
 const [$0, $1] = argv._

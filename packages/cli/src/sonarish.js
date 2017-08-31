@@ -4,9 +4,11 @@ import { buildEslintRuleset, calcStats } from 'sonarish-core'
 import rulesetList from 'sonarish-ruleset/es201x'
 import Table from 'cli-table2'
 import { execEslintOnProject } from './commands'
+import { makeUrlAbsolute } from './util'
 
 // eslint-disable-next-line
 const argv = require('minimist')(process.argv.slice(2))
+const entries: any = Object.entries
 
 const [$0] = argv._
 

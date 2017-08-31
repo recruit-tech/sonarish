@@ -52,7 +52,18 @@ export function add(basePath: string, gitUrl: string) {
 
 // utils
 export function execEslintOnProject(projectRootPath: string, opts: any) {
-  return new CLIEngine(opts).executeOnFiles([projectRootPath])
+  return new CLIEngine({
+    ...opts,
+    ignore: true,
+    ignorePath: path.join(projectRootPath, '.eslintignore'),
+    ignorePattern: [
+      path.join(projectRootPath, 'node_modules'),
+      path.join(projectRootPath, '**', 'node_modules'),
+      path.join(projectRootPath, 'dist'),
+      path.join(projectRootPath, 'public'),
+      path.join(projectRootPath, 'out')
+    ]
+  }).executeOnFiles([projectRootPath])
 }
 
 export function buildResultMap(projectRootPath: string, rulesetList: any) {

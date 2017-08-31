@@ -1,6 +1,11 @@
 /* @flow */
 import fs from 'fs'
+import path from 'path'
 import { execSync } from 'child_process'
+
+export function makeUrlAbsolute(fpath: string): string {
+  return path.isAbsolute(fpath) ? fpath : path.join(process.cwd(), fpath)
+}
 
 // Example:
 //   git@github.com:mizchi/sonarish.git => sonarish
