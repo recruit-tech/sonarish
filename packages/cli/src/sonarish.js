@@ -27,9 +27,9 @@ function overrideScoreMapByDefaultRules(scoreMap, defaultRules) {
   }, scoreMap)
 }
 
-if (argv.help || argv.h) {
-  console.log(`sonarish [<dir-a> <dir-b> ...] [--root <projectRoot>]`)
-}
+// if (argv.help || argv.h) {
+//   console.log(`sonarish [<dir-a> <dir-b> ...] [--root <projectRoot>]`)
+// }
 
 const maybeRoot = argv.root || argv.r
 const root = maybeRoot ? makeUrlAbsolute(maybeRoot) : process.cwd()
