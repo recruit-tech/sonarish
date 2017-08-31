@@ -4,6 +4,9 @@ module.exports = {
   type: 'eslint',
   eslintOptions: {
     parser: 'babel-eslint',
+    parserOptions: {
+      sourceType: 'module'
+    },
     plugins: ['eslint-comments', 'promise', 'compat', 'import']
   },
   scoreRules: [
