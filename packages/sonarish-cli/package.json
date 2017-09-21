@@ -1,6 +1,6 @@
 {
   "name": "sonarish-cli",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "main": "lib/commands.js",
   "bin": {
     "sonarish": "bin/sonarish.js"
