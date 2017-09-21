@@ -8,6 +8,7 @@ import type { Context, Definition } from 'sonarish-types'
 type RawResult = {
   score: number,
   packages: Array<{
+    moduleName: string,
     installed: string,
     latest: string
   }>
@@ -63,9 +64,11 @@ export default {
   },
   format(_ctx: Context, result: RawResult) {
     const outdated = result.packages.filter(m => {
-      return m.installed !== m.latest
+      return m.installed && m.latest && m.installed !== m.latest
     })
-    const text = outdated.map(m => `${m.latest} > ${m.installed}`).join('\n')
+    const text = outdated
+      .map(m => `${m.moduleName}: ${m.latest} > ${m.installed}`)
+      .join('\n')
     return `dep-health: ${result.score}\n${text}\n`
   }
 }
