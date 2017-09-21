@@ -1,0 +1,20 @@
+{
+  "name": "sonarish-cli",
+  "version": "0.2.4",
+  "main": "lib/commands.js",
+  "bin": {
+    "sonarish": "bin/sonarish.js"
+  },
+  "scripts": {
+    "prepublish": "babel src -d lib",
+    "prepare": "babel src -d lib",
+    "test": "exit 0"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "prettyjson": "^1.2.1",
+    "sonarish-core": "^0.2.3"
+  },
+  "files": ["lib", "bin"]
+}
