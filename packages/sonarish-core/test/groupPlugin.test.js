@@ -2,7 +2,7 @@
 import test from 'ava'
 import { run, createContext } from '../src/context'
 
-test('group.calcScore', t => {
+test('group.calcScore', async t => {
   const def = {
     type: 'group',
     config: {
@@ -22,11 +22,11 @@ test('group.calcScore', t => {
     }
   }
 
-  const ret = run(createContext(), def)
+  const ret = await run(createContext(), def)
   t.is(ret.score, 1)
 })
 
-test('groupPlugin.calcScore: nested', t => {
+test('groupPlugin.calcScore: nested', async t => {
   const def = {
     type: 'group',
     config: {
@@ -56,11 +56,11 @@ test('groupPlugin.calcScore: nested', t => {
     }
   }
 
-  const ret = run(createContext(), def)
+  const ret = await run(createContext(), def)
   t.is(ret.score, 1)
 })
 
-test('group.calcScore: with priority weight', t => {
+test('group.calcScore: with priority weight', async t => {
   const def = {
     type: 'group',
     config: {
@@ -89,6 +89,6 @@ test('group.calcScore: with priority weight', t => {
     }
   }
 
-  const ret = run(createContext(), def)
+  const ret = await run(createContext(), def)
   t.is(ret.score, 0.25)
 })

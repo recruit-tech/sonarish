@@ -46,7 +46,7 @@ declare module 'sonarish-types' {
 
   declare type PluginInterface<T = void> = {
     type: string,
-    calcScore: (Context, Definition, Options) => CalculationResult<T>,
+    calcScore: (Context, Definition, Options) => Promise<CalculationResult<T>>  | CalculationResult<T>,
     format: (Context, T) => string
   }
 

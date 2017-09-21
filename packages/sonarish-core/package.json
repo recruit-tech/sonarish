@@ -16,13 +16,18 @@
       "extends": "../../.babelrc"
     },
     "require": [
+      "babel-polyfill",
       "babel-register"
     ]
   },
   "dependencies": {
+    "sonarish-plugin-dep-health": "^0.3.2",
     "sonarish-plugin-eslint-ruleset": "^0.3.4"
   },
   "files": [
     "lib"
-  ]
+  ],
+  "devDependencies": {
+    "ava": "^0.22.0"
+  }
 }

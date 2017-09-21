@@ -9,7 +9,7 @@ function makeUrlAbsolute(fpath: string): string {
   return path.isAbsolute(fpath) ? fpath : path.join(process.cwd(), fpath)
 }
 
-export default (opts: {
+export default async (opts: {
   cwd?: string,
   f?: string,
   raw?: boolean,
@@ -28,7 +28,7 @@ export default (opts: {
 
   const ctx = createContext()
 
-  const result = run(ctx, rootBundleDef, {
+  const result = await run(ctx, rootBundleDef, {
     cwd
   })
 

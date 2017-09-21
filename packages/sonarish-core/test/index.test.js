@@ -2,7 +2,7 @@
 import test from 'ava'
 import report from '../src/'
 
-test('report', t => {
+test('report', async t => {
   const opts = {
     plugins: [],
     definition: {
@@ -24,6 +24,6 @@ test('report', t => {
     }
   }
 
-  const ret = report(opts, {})
+  const ret = await report(opts, {})
   t.is(ret.score, 1)
 })

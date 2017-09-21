@@ -1,4 +1,3 @@
-/* @flow */
 /* eslint-disable */
 
 /* This is plugin implementation example*/
