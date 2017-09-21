@@ -1,4 +1,4 @@
 packages/*/node_modules
 packages/*/lib/*
+packages/sonarish-plugin-eslint-ruleset/test/fixtures/**/*
 flow-typed
-wip

@@ -4,11 +4,10 @@
   "author": "mizchi <miz404@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "lint": "eslint packages/*/src packages/*/test",
     "typecheck": "flow",
     "typecheck:cov": "flow-coverage-report -i 'packages/*/src/**.js'",
-    "start:api": "npm start --prefix packages/api",
-    "start:web": "npm start --prefix packages/web",
-    "start": "run-p start:*"
+    "watch": "lerna exec --parallel 'yarn perpare -w'"
   },
   "devDependencies": {
     "ava": "^0.22.0",
