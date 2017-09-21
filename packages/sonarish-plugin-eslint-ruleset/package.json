@@ -1,6 +1,6 @@
 {
   "name": "sonarish-plugin-eslint-ruleset",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
@@ -9,11 +9,15 @@
     "test": "ava"
   },
   "ava": {
-    "files": ["test/**/*.test.js"],
+    "files": [
+      "test/**/*.test.js"
+    ],
     "babel": {
       "extends": "../../.babelrc"
     },
-    "require": ["babel-register"]
+    "require": [
+      "babel-register"
+    ]
   },
   "dependencies": {
     "babel-eslint": "^8.0.0",
@@ -30,5 +34,7 @@
     "lodash.range": "^3.2.0",
     "lodash.sortby": "^4.7.0"
   },
-  "files": ["lib"]
+  "files": [
+    "lib"
+  ]
 }

@@ -1,6 +1,6 @@
 {
   "name": "sonarish-core",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
@@ -20,7 +20,7 @@
     ]
   },
   "dependencies": {
-    "sonarish-plugin-eslint-ruleset": "^0.3.3"
+    "sonarish-plugin-eslint-ruleset": "^0.3.4"
   },
   "files": [
     "lib"
