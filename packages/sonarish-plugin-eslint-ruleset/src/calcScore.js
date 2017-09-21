@@ -23,7 +23,6 @@ export default function calcScore(
 
   const messages = flatten(result.results.map(r => r.messages))
   const groupedMessages = groupBy(messages, m => m.ruleId)
-  console.log('raw eslint result', messages)
 
   const rules = Object.keys(groupedMessages).filter(i => !!i && i !== 'null')
 
