@@ -1,5 +1,5 @@
 {
-  "name": "sonarish-core",
+  "name": "sonarish-plugin-dep-health",
   "version": "0.3.2",
   "main": "lib/index.js",
   "license": "MIT",
@@ -19,10 +19,10 @@
       "babel-register"
     ]
   },
-  "dependencies": {
-    "sonarish-plugin-eslint-ruleset": "^0.3.2"
-  },
   "files": [
     "lib"
-  ]
+  ],
+  "devDependencies": {
+    "ava": "^0.22.0"
+  }
 }
