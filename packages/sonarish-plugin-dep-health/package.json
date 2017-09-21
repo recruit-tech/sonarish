@@ -25,5 +25,10 @@
   ],
   "devDependencies": {
     "ava": "^0.22.0"
+  },
+  "dependencies": {
+    "npm-check": "^5.4.5",
+    "react": "0.13",
+    "semver": "^5.4.1"
   }
 }
