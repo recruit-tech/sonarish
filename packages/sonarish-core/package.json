@@ -1,0 +1,22 @@
+{
+  "name": "sonarish-core",
+  "version": "0.2.3",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "prepublish": "babel src -d lib",
+    "prepare": "babel src -d lib",
+    "test": "ava"
+  },
+  "ava": {
+    "files": ["test/**/*.test.js"],
+    "babel": {
+      "extends": "../../.babelrc"
+    },
+    "require": ["babel-register"]
+  },
+  "dependencies": {
+    "sonarish-plugin-eslint-ruleset": "^0.2.3"
+  },
+  "files": ["lib"]
+}
