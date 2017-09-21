@@ -63,7 +63,7 @@ export default {
   },
   format(_ctx: Context, result: RawResult) {
     const outdated = result.packages.filter(m => {
-      return m.installed === m.latest
+      return m.installed !== m.latest
     })
     const text = outdated.map(m => `${m.latest} > ${m.installed}`).join('\n')
     return `dep-health: ${result.score}\n${text}\n`
