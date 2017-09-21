@@ -1,0 +1,29 @@
+{
+  "name": "sonarish-plugin-nop",
+  "private": true,
+  "main": "lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "prepublish": "babel src -d lib",
+    "prepare": "babel src -d lib",
+    "test": "ava"
+  },
+  "ava": {
+    "files": [
+      "test/**/*.test.js"
+    ],
+    "babel": {
+      "extends": "../../.babelrc"
+    },
+    "require": [
+      "babel-register"
+    ]
+  },
+  "dependencies": {},
+  "files": [
+    "lib"
+  ],
+  "devDependencies": {
+    "ava": "^0.22.0"
+  }
+}
