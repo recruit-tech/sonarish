@@ -1,6 +1,6 @@
 {
   "name": "sonarish-plugin-dep-health",
-  "version": "0.3.5",
+  "version": "0.3.7",
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
