@@ -9,19 +9,16 @@
     "test": "ava"
   },
   "ava": {
-    "files": [
-      "test/**/*.test.js"
-    ],
+    "files": ["test/**/*.test.js"],
     "babel": {
       "extends": "../../.babelrc"
     },
-    "require": [
-      "babel-register"
-    ]
+    "require": ["babel-register"]
   },
   "dependencies": {
     "babel-eslint": "^8.0.0",
     "cli-table2": "^0.2.0",
+    "eslint": "^4.2.0",
     "eslint-plugin-compat": "^1.0.4",
     "eslint-plugin-eslint-comments": "^1.0.3",
     "eslint-plugin-filesize": "^0.1.2",
@@ -33,10 +30,5 @@
     "lodash.range": "^3.2.0",
     "lodash.sortby": "^4.7.0"
   },
-  "files": [
-    "lib"
-  ],
-  "devDependencies": {
-    "eslint": "^4.7.1"
-  }
+  "files": ["lib"]
 }
