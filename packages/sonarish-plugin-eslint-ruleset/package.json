@@ -35,5 +35,8 @@
   },
   "files": [
     "lib"
-  ]
+  ],
+  "devDependencies": {
+    "eslint": "^4.7.1"
+  }
 }
