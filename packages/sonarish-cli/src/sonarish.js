@@ -1,4 +1,5 @@
 /* @flow */
+import 'babel-polyfill'
 import fs from 'fs'
 import path from 'path'
 import prettyjson from 'prettyjson'
