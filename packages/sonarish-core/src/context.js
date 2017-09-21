@@ -8,6 +8,7 @@ import type {
   Definition
 } from 'sonarish-types'
 import eslintRulesetPlugin from 'sonarish-plugin-eslint-ruleset'
+import depHealthPlugin from 'sonarish-plugin-dep-health'
 import groupPlugin from './plugins/group'
 import echoPlugin from './plugins/echo'
 
@@ -27,7 +28,8 @@ export function createContext(
   }, {
     group: groupPlugin,
     echo: echoPlugin,
-    'eslint-ruleset': eslintRulesetPlugin
+    'eslint-ruleset': eslintRulesetPlugin,
+    'dep-health': depHealthPlugin
   })
 
   return {

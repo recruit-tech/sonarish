@@ -76,6 +76,7 @@ module.exports = {
   scoreMap: {
     complexity: ['eslint-ruleset', 1, complexity],
     'best-practice': ['eslint-ruleset', 1, bestPractice],
-    'meta-comments': ['eslint-ruleset', 1, metaComments]
+    'meta-comments': ['eslint-ruleset', 1, metaComments],
+    'dep-health': ['dep-health', 1, {}]
   }
 }
