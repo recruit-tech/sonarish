@@ -1,0 +1,39 @@
+{
+  "name": "sonarish-plugin-eslint-ruleset",
+  "version": "0.2.3",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "prepublish": "babel src -d lib",
+    "prepare": "babel src -d lib",
+    "test": "ava"
+  },
+  "ava": {
+    "files": [
+      "test/**/*.test.js"
+    ],
+    "babel": {
+      "extends": "../../.babelrc"
+    },
+    "require": [
+      "babel-register"
+    ]
+  },
+  "dependencies": {
+    "babel-eslint": "^8.0.0",
+    "cli-table2": "^0.2.0",
+    "eslint-plugin-compat": "^1.0.4",
+    "eslint-plugin-eslint-comments": "^1.0.3",
+    "eslint-plugin-filesize": "^0.1.2",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-mutation": "^1.0.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "lodash.flatten": "^4.4.0",
+    "lodash.groupby": "^4.6.0",
+    "lodash.range": "^3.2.0",
+    "lodash.sortby": "^4.7.0"
+  },
+  "files": [
+    "lib"
+  ]
+}
