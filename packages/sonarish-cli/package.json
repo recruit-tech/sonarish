@@ -1,6 +1,6 @@
 {
   "name": "sonarish-cli",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "main": "lib/commands.js",
   "bin": {
     "sonarish": "bin/sonarish.js"
@@ -15,7 +15,7 @@
     "babel-polyfill": "^6.26.0",
     "minimist": "^1.2.0",
     "prettyjson": "^1.2.1",
-    "sonarish-core": "^0.3.9"
+    "sonarish-core": "^0.3.10"
   },
   "files": [
     "lib",
