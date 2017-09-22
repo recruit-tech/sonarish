@@ -31,7 +31,7 @@ export default function calcScore(
   const sumOfPriorities = values(scoreMap).reduce((sum, i) => sum + i, 0)
 
   // Consider file count to drop point in small project
-  const threshold = Math.min(100, result.results.length)
+  const threshold = result.results.length
 
   const scoreResultMap = rules
     .map(rule => {

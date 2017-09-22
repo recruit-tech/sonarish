@@ -12,6 +12,7 @@ const complexity = {
       1,
       { exceptions: ['this', 'that', 'global', 'window', 'module'] }
     ],
+    complexity: [2, 5],
     'no-unreachable': 4,
     'no-cond-assign': 4,
     'no-func-assign': 3,
@@ -34,7 +35,6 @@ const bestPractice = {
     'import/no-extraneous-dependencies': 3,
     'import/no-mutable-exports': 2,
     'promise/no-nesting': 2,
-    'promise/no-return-wrap': 2,
     'promise/always-return': 2,
     'no-unused-vars': [1, { varsIgnorePattern: '^_|React' }],
     'no-multiple-empty-lines': [2, { max: 3 }],
@@ -46,7 +46,7 @@ const bestPractice = {
     'no-debugger': 2,
     'no-global-assign': [4, { exceptions: ['window'] }],
     'prefer-const': 2,
-    'prefer-arrow-callback': 2,
+    'prefer-arrow-callback': 1,
     'no-return-await': 2,
     'no-class-assign': 2
   }
