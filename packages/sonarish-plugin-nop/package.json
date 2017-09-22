@@ -9,19 +9,13 @@
     "test": "ava"
   },
   "ava": {
-    "files": [
-      "test/**/*.test.js"
-    ],
+    "files": ["test/**/*.test.js"],
     "babel": {
       "extends": "../../.babelrc"
     },
-    "require": [
-      "babel-register"
-    ]
+    "require": ["babel-polyfill", "babel-register"]
   },
-  "files": [
-    "lib"
-  ],
+  "files": ["lib"],
   "devDependencies": {
     "ava": "^0.22.0"
   },

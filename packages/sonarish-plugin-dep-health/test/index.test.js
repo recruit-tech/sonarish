@@ -1,4 +1,5 @@
 /* @flow */
+import 'babel-polyfill'
 import path from 'path'
 import test from 'ava'
 import { createContext, addPlugin, run } from 'sonarish-core'

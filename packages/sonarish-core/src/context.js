@@ -22,15 +22,17 @@ export function createContext(
   { plugins }: ContextOptions = {},
   _opts: Options = {}
 ): Context {
-  const pluginInstanceMap = (plugins || []).reduce((acc, _plug) => {
-    // TODO: Load external instance
-    return acc
-  }, {
-    group: groupPlugin,
-    echo: echoPlugin,
-    'eslint-ruleset': eslintRulesetPlugin,
-    'dep-health': depHealthPlugin
-  })
+  const pluginInstanceMap: any = (plugins || []).reduce(
+    (acc, pluginName) => {
+      return { ...acc, [pluginName]: _loadPluginInstance(pluginName) }
+    },
+    {
+      group: groupPlugin,
+      echo: echoPlugin,
+      'eslint-ruleset': eslintRulesetPlugin,
+      'dep-health': depHealthPlugin
+    }
+  )
 
   return {
     pluginInstanceMap
@@ -52,4 +54,19 @@ export function addPlugin(ctx: Context, plugin: PluginInterface<*>): Context {
     ...ctx,
     pluginInstanceMap: { ...ctx.pluginInstanceMap, [plugin.type]: plugin }
   }
+}
+
+/* eslint-disable */
+export function _loadPluginInstance(refName: string): PluginInterface<*> {
+  try {
+    // $FlowFixMe
+    return require('sonarish-plugin-' + refName)
+  } catch (_e) {
+    // $FlowFixMe
+    return require(refName)
+  }
+}
+
+export function loadPlugin(ctx: Context, refName: string): Context {
+  return addPlugin(ctx, _loadPluginInstance(refName))
 }

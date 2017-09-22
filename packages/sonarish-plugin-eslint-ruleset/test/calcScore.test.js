@@ -15,15 +15,10 @@ test('calcScore: Fail all', t => {
   }
   const ctx = createContext()
   const cwd = path.join(__dirname, 'fixtures/eslint-target')
-  const ret = calcScore(
-    ctx,
-    def,
-    {
-      cwd,
-      _: [cwd]
-    },
-    {}
-  )
+  const ret = calcScore(ctx, def, {
+    cwd,
+    _: [cwd]
+  })
   t.is(ret.score, 0)
 })
 
