@@ -1,25 +1,27 @@
 /* @flow */
 import flatten from 'lodash.flatten'
 import groupBy from 'lodash.groupby'
-import type { Context, Options } from 'sonarish-types'
-import { execEslint, buildEslintRuleset } from './eslintHelpers'
+import type { Context } from 'sonarish-types'
+import * as eslintHelpers from './eslintHelpers'
 import { norm, values } from './helpers'
-import type { RawDump } from './types'
+import type { EnvOptions, RawDump } from './types'
 
 export default function calcScore(
   ctx: Context,
   definition: {
     config: any
   },
-  opts: Options
+  envOpts: EnvOptions
 ): {
   score: number,
   rawResult: RawDump
 } {
-  const cwd: any = opts.cwd || process.cwd()
-  const { scoreMap, eslintOptions } = buildEslintRuleset(definition.config)
+  const cwd: any = envOpts.cwd || process.cwd()
+  const { scoreMap, eslintOptions } = eslintHelpers.buildRuleset(
+    definition.config
+  )
 
-  const result = execEslint(cwd, opts._ || [], eslintOptions)
+  const result = eslintHelpers.exec(cwd, eslintOptions, envOpts)
 
   const messages = flatten(result.results.map(r => r.messages))
   const groupedMessages = groupBy(messages, m => m.ruleId)

@@ -3,20 +3,29 @@ import fs from 'fs'
 import path from 'path'
 import { CLIEngine } from 'eslint'
 import { entries } from './helpers'
+import type { EslintOptions, EnvOptions } from './types'
 
 const ESLINT_ERROR = 2
 
-export function execEslint(cwd: string, targets: string[], opts: any) {
-  const cli = buildEslintEngine(cwd, opts)
-  return cli.executeOnFiles(
-    targets.length === 0 ? [cwd] : targets.map(t => path.join(cwd, t))
-  )
+// export function execEslint(cwd: string, targets: string[], opts: any) {
+export function exec(
+  cwd: string,
+  eslintOpts: EslintOptions,
+  envOpts: EnvOptions
+) {
+  const cli = buildEngine(cwd, eslintOpts, envOpts)
+  return cli.executeOnFiles(envOpts._ || [])
 }
 
-export function buildEslintEngine(cwd: string, opts: any) {
+export function buildEngine(
+  cwd: string,
+  eslintOpts: EslintOptions,
+  _envOpts: any
+) {
   const ignorePath = path.join(cwd, '.eslintignore')
-  return new CLIEngine({
-    ...opts,
+  const newOpts = {
+    ...eslintOpts,
+    cwd,
     ignore: true,
     ignorePath: fs.existsSync(ignorePath) ? ignorePath : null,
     ignorePattern: [
@@ -26,11 +35,12 @@ export function buildEslintEngine(cwd: string, opts: any) {
       path.join(cwd, 'public'),
       path.join(cwd, 'out')
     ]
-  })
+  }
+  return new CLIEngine(newOpts)
 }
 
-export function getDefaultEslintConfig(cwd: string, opts: any) {
-  const cli = buildEslintEngine(cwd, opts)
+export function getDefaultConfig(cwd: string, envOpts: EnvOptions) {
+  const cli = buildEngine(cwd, { cwd }, envOpts)
   try {
     return cli.getConfigForFile('.')
   } catch (e) {
@@ -44,8 +54,8 @@ type eslint$Rules = {
   [string]: number | [number, any]
 }
 
-export function buildEslintRuleset(config: {
-  eslintOptions: any,
+export function buildRuleset(config: {
+  eslintOptions: EslintOptions,
   scoreMap: eslint$Rules
 }) {
   const additionalRules = entries(config.scoreMap).reduce((acc, [key, i]) => {

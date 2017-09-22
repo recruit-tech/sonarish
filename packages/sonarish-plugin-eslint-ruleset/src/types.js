@@ -9,3 +9,14 @@ export type RawDump = {
     }
   }
 }
+
+export type EslintOptions = {
+  cwd: ?string,
+  ignore?: boolean,
+  ignorePath?: ?string,
+  ignorePattern?: string[]
+}
+
+export type EnvOptions = {
+  _: string[]
+}

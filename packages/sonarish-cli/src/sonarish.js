@@ -1,14 +1,9 @@
 /* @flow */
 import 'babel-polyfill'
 import fs from 'fs'
-import path from 'path'
 import prettyjson from 'prettyjson'
 import { toRootDefinition, format, run, createContext } from 'sonarish-core'
 import defaultDefinition from './defaultDefinition'
-
-function makeUrlAbsolute(fpath: string): string {
-  return path.isAbsolute(fpath) ? fpath : path.join(process.cwd(), fpath)
-}
 
 export default async (opts: {
   cwd?: string,
@@ -20,8 +15,6 @@ export default async (opts: {
     console.log(`sonarish [<dir-a> <dir-b> ...] [--root <projectRoot>]`)
   }
 
-  const cwd = opts.cwd ? makeUrlAbsolute(opts.cwd) : process.cwd()
-
   const def = opts.f
     ? JSON.parse(fs.readFileSync(opts.f).toString())
     : defaultDefinition
@@ -29,9 +22,7 @@ export default async (opts: {
 
   const ctx = createContext()
 
-  const result = await run(ctx, rootBundleDef, {
-    cwd
-  })
+  const result = await run(ctx, rootBundleDef, opts)
 
   if (opts.raw) {
     console.log(prettyjson.render(result))

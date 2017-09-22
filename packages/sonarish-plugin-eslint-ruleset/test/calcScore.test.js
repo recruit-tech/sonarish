@@ -14,9 +14,16 @@ test('calcScore: Fail all', t => {
     }
   }
   const ctx = createContext()
-  const ret = calcScore(ctx, def, {
-    cwd: path.join(__dirname, 'fixtures/eslint-target')
-  })
+  const cwd = path.join(__dirname, 'fixtures/eslint-target')
+  const ret = calcScore(
+    ctx,
+    def,
+    {
+      cwd,
+      _: [cwd]
+    },
+    {}
+  )
   t.is(ret.score, 0)
 })
 
@@ -30,8 +37,10 @@ test('calcScore: Same priorities and fail half => 0.5', t => {
     }
   }
   const ctx = createContext()
+  const cwd = path.join(__dirname, 'fixtures/eslint-target')
   const ret = calcScore(ctx, def, {
-    cwd: path.join(__dirname, 'fixtures/eslint-target')
+    cwd,
+    _: [cwd]
   })
   t.is(ret.score, 0.5)
 })

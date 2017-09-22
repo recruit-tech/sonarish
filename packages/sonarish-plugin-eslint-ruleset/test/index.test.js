@@ -18,8 +18,10 @@ test('Register self and run', async t => {
   }
 
   const ctx = addPlugin(createContext(), plugin)
+  const cwd = path.join(__dirname, 'fixtures/eslint-target')
   const ret = await run(ctx, def, {
-    cwd: path.join(__dirname, 'fixtures/eslint-target')
+    cwd,
+    _: [cwd]
   })
   t.is(ret.score, 0)
 })

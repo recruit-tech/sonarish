@@ -1,4 +1,7 @@
 /* @flow */
+import fs from 'fs'
+import path from 'path'
+
 import npmCheck from 'npm-check'
 import semver from 'semver'
 import type { Context, Definition } from 'sonarish-types'
@@ -45,7 +48,20 @@ export default {
     _definition: Definition,
     opts: { cwd?: string }
   ) {
-    const state = await npmCheck({ cwd: opts.cwd || process.cwd() })
+    const cwd = opts.cwd || process.cwd()
+    const pkgPath = path.join(cwd, 'package.json')
+    if (!fs.existsSync(pkgPath)) {
+      console.warn('dep-health/There is no package.json', pkgPath)
+      return {
+        type: 'dep-health',
+        score: 1,
+        rawResult: {
+          score: 1,
+          packages: []
+        }
+      }
+    }
+    const state = await npmCheck({ cwd })
     const packages = state.get('packages')
     const total = packages
       .filter(pkg => pkg.installed && pkg.latest)
