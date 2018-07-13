@@ -29,7 +29,9 @@
     "npm-run-all": "^4.0.2",
     "prettier": "^1.5.3"
   },
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "version": "1.0.0",
   "repository": "https://github.com/recruit-tech/sonarish.git"
 }
